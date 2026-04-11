@@ -1,0 +1,11 @@
+*.unitypackage
+*.unitypackage.meta
+
+Builds/
+Library/
+Logs/
+Temp/
+UserSettings/
+UIElementsSchema/
+
+.vscode
