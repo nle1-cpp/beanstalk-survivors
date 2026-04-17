@@ -19,6 +19,10 @@ public class PlayerMovement : MonoBehaviour
     public bool isGrounded;
     public Transform orientation;
 
+    // double jump
+    // public int MaxJumps = 2;
+    // private int _jumpCount = 0;
+
     private void Awake()
     {
         rb = GetComponent<Rigidbody>();
@@ -99,4 +103,5 @@ public class PlayerMovement : MonoBehaviour
         // Apply jump force once
         rb.AddForce(transform.up * jumpForce, ForceMode.Impulse);
     }
+
 }
