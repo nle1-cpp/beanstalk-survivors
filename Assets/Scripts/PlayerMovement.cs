@@ -32,6 +32,10 @@ public class PlayerMovement : MonoBehaviour
     public int maxAirJumps = 3;
     public float airJumpRefillInterval = 0.35f;
 
+    public Vector3 Velocity => rb != null ? rb.linearVelocity : Vector3.zero;
+    public int AvailableAirJumps => availableAirJumps;
+    public int MaxAirJumps => maxAirJumps;
+
     private void Awake()
     {
         rb = GetComponent<Rigidbody>();
@@ -83,6 +87,25 @@ public class PlayerMovement : MonoBehaviour
     {
         moveAction.Disable();
         jumpAction.Disable();
+    }
+
+    public void ResetForPlaytest(Vector3 position)
+    {
+        transform.position = position;
+
+        if (rb != null)
+        {
+            rb.position = position;
+            rb.linearVelocity = Vector3.zero;
+            rb.angularVelocity = Vector3.zero;
+        }
+
+        moveInput = Vector3.zero;
+        moveDirection = Vector3.zero;
+        jumpRequested = false;
+        airJumpRegenTimer = 0f;
+        availableAirJumps = maxAirJumps;
+        isGrounded = false;
     }
 
     private void Update()

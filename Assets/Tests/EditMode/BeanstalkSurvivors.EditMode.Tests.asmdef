@@ -1,0 +1,13 @@
+{
+  "name": "BeanstalkSurvivors.EditMode.Tests",
+  "references": [
+    "BeanstalkSurvivors.Runtime"
+  ],
+  "optionalUnityReferences": [
+    "TestAssemblies"
+  ],
+  "includePlatforms": [
+    "Editor"
+  ],
+  "excludePlatforms": []
+}
