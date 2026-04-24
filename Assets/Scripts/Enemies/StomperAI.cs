@@ -16,6 +16,11 @@ public class StomperAI : EnemyAI
         // Parent Start logic
         base.Awake();
 
+        cloud1 = GameObject.Find("Cloud1");
+        cloud2 = GameObject.Find("Cloud2");
+        cloud3 = GameObject.Find("Cloud3");
+        cloud4 = GameObject.Find("Cloud4");
+
         // For falling through platforms (disable agent nav and rigidbody)
         agentNav = GetComponent<NavMeshAgent>();
         rb = GetComponent<Rigidbody>();
@@ -48,7 +53,7 @@ public class StomperAI : EnemyAI
     {
         if (other.CompareTag("Cloud"))
         {
-            // The trigger sensor allows the Kinematic AI to "see" the platform
+            // Trigger sensor allows the Kinematic AI to "see" the platform
             StartCoroutine(CloudVanish(other.gameObject));
         }
     }
@@ -60,6 +65,5 @@ public class StomperAI : EnemyAI
         rb.isKinematic = false;
         yield return new WaitForSeconds(2f);
         cloud.SetActive(true);
-        Destroy(gameObject, 1f);
     }
 }

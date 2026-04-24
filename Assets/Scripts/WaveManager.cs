@@ -1,7 +1,8 @@
 using System; // Action
-using System.Collections.Generic; // List
 using System.Collections;
+using System.Collections.Generic; // List
 using UnityEngine;
+using UnityEngine.SocialPlatforms;
 
 public class WaveManager : MonoBehaviour
 {
@@ -20,7 +21,7 @@ public class WaveManager : MonoBehaviour
         }
         else
         {
-            Debug.LogError("WaveManager: GameManager.Instance is still null in Start!");
+            Debug.LogError("WaveManager: GameManager.Instance is still null in Start");
         }
 
         StartNextWave();
@@ -28,7 +29,7 @@ public class WaveManager : MonoBehaviour
 
     public void StartNextWave()
     {
-        Debug.Log("Starting Wave");
+        Debug.Log("Starting Wave " + (_currentWaveIndex + 1));
         if (_currentWaveIndex < waves.Count)
         {
             StartCoroutine(SpawnRoutine(waves[_currentWaveIndex]));
@@ -39,9 +40,10 @@ public class WaveManager : MonoBehaviour
     {
         _enemiesRemaining = data.totalToSpawn;
 
+
         for (int i = 0; i < data.totalToSpawn; i++)
         {
-            // Pick random enemy from the SO and random spawn point
+            // Pick random enemy + random spawn point
             GameObject prefab = data.enemyPrefabs[UnityEngine.Random.Range(0, data.enemyPrefabs.Length)];
             Transform spot = spawnPoints[UnityEngine.Random.Range(0, spawnPoints.Length)];
 
@@ -55,9 +57,30 @@ public class WaveManager : MonoBehaviour
     public void OnEnemyDefeated()
     {
         _enemiesRemaining--;
+        Debug.Log(_enemiesRemaining + " enemies remaining");
         if (_enemiesRemaining <= 0)
         {
+            Debug.Log("All enemies defeated -> Spawning next wave");
             _currentWaveIndex++;
+            StartNextWave();
         }
+    }
+
+    // Whenever ANY EnemyHealth fires OnDeath -> run local method
+    private void OnEnable()
+    { 
+        EnemyHealth.OnDeath += HandleEnemyDeath;
+    }
+
+    // Crucial for memory management
+    private void OnDisable()
+    {
+        EnemyHealth.OnDeath -= HandleEnemyDeath;
+    }
+
+    // Event -> Local method
+    private void HandleEnemyDeath(EnemyHealth enemy)
+    {
+        OnEnemyDefeated();
     }
 }

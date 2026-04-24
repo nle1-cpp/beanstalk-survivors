@@ -23,4 +23,9 @@ public class Health : MonoBehaviour, IDamageable
         //if (CompareTag("Player")) GameManager.Instance.ResetToTitle();
         //else Destroy(gameObject);
     }
+
+    public void Kill()
+    {
+        Debug.Log("Killed Player");
+    }
 }

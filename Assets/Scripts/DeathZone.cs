@@ -6,13 +6,20 @@ public class DeathZone : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            Debug.Log("Triggered Death Zone");
+            Debug.Log("Player Triggered Death Zone");
         }
 
         if (other.CompareTag("Enemy"))
         {
             Debug.Log("Enemy Triggered Death Zone");
-            Destroy(other);
+
+            // Trigger Death for enemies that fall
+            IDamageable health = other.GetComponentInParent<IDamageable>();
+
+            if (health != null)
+            {
+                health.Kill();
+            }
         }
     }
 }

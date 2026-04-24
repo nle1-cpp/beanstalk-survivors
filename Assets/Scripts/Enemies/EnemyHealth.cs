@@ -3,11 +3,10 @@ using UnityEngine;
 
 public class EnemyHealth : MonoBehaviour, IDamageable
 {
-    // The Event: Any script can listen, but only this script can fire it.
-    // We pass 'this' so the listener knows WHICH enemy died.
     public static event Action<EnemyHealth> OnDeath;
 
     [SerializeField] private float _health = 100;
+    private bool _isDead = false;
 
     public void TakeDamage(float damage)
     {
@@ -17,9 +16,17 @@ public class EnemyHealth : MonoBehaviour, IDamageable
 
     private void Die()
     {
-        // ?.Invoke safely checks if anyone is actually listening before firing
-        OnDeath?.Invoke(this);
+        if (_isDead) return;
 
+        _isDead = true;
+        // ?.Invoke -> Notify the WaveManager
+        OnDeath?.Invoke(this);
         Destroy(gameObject);
+    }
+
+    public void Kill()
+    {
+        if (_isDead) return; // Exit if dead already (For the death zone so it trigger doesn't trigger twice; Stompers have 2 colliders)
+        Die();
     }
 }
