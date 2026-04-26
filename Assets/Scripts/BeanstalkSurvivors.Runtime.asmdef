@@ -1,7 +1,7 @@
 {
   "name": "BeanstalkSurvivors.Runtime",
   "autoReferenced": true,
-  "references": [],
+  "references": ["Unity.InputSystem"],
   "includePlatforms": [],
   "excludePlatforms": []
 }

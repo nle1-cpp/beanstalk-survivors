@@ -13,13 +13,15 @@ UNITY_COMMON := -batchmode -quit -projectPath "$(PROJECT_PATH)"
 help:
 	@printf '%s\n' \
 		"Targets:" \
-		"  test-edit    Run EditMode tests" \
-		"  test-play    Run PlayMode tests in the editor" \
-		"  test-player  Run PlayMode tests in a built player" \
+		"  all          Run all tests, build, and run"
+		"" \
 		"  build        Build a development player" \
 		"  build-run    Build and auto-launch a development player" \
 		"  run          Alias for build-run" \
-		"  all          Run edit tests, play tests, and build-run"
+		"" \
+		"  test-edit    Run EditMode tests" \
+		"  test-play    Run PlayMode tests in the editor" \
+		"  test-player  Run PlayMode tests in a built player"
 
 test-edit:
 	mkdir -p "$(LOG_DIR)" "$(RESULTS_DIR)"
