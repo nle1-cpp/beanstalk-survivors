@@ -28,4 +28,6 @@ public class Health : MonoBehaviour, IDamageable
     {
         Debug.Log("Killed Player");
     }
+
+    public int CurrentHealth => (int)currentHealth; // UI
 }

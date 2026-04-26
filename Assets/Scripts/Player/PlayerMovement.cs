@@ -3,6 +3,7 @@ using UnityEngine.InputSystem;
 
 public class PlayerMovement : MonoBehaviour
 {
+
     private Rigidbody rb;
     private InputAction moveAction;
     private InputAction jumpAction;
@@ -85,6 +86,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void FixedUpdate()
     {
+
         // Move Player
         moveDirection = orientation.forward * verticalInput + orientation.right * horizontalInput;
         if (isGrounded) {

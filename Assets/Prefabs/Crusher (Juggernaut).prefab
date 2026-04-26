@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 4898604536159060480}
   - component: {fileID: 1557873399544218742}
   - component: {fileID: 6616243064210640580}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Crusher (Juggernaut)
   m_TagString: Enemy
   m_Icon: {fileID: 0}
@@ -128,7 +128,7 @@ NavMeshAgent:
   m_Enabled: 1
   m_AgentTypeID: 0
   m_Radius: 0.5
-  m_Speed: 4
+  m_Speed: 2.5
   m_Acceleration: 8
   avoidancePriority: 50
   m_AngularSpeed: 120
@@ -152,7 +152,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4743aa4ed71b5274fa07fcb77a642a74, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyHealth
-  _health: 75
+  _health: 50
 --- !u!114 &1557873399544218742
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -3,24 +3,20 @@
   "WorkspaceRootPath": "C:\\Users\\yoshi\\OneDrive\\Desktop\\CS 4700\\Game\\Beanstalk-Survivors-main\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{9D381C27-2767-AFAD-E780-BBC6B74B90CF}|Assembly-CSharp.csproj|c:\\users\\yoshi\\onedrive\\desktop\\cs 4700\\game\\beanstalk-survivors-main\\assets\\scripts\\deathzone.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{9D381C27-2767-AFAD-E780-BBC6B74B90CF}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\deathzone.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{9D381C27-2767-AFAD-E780-BBC6B74B90CF}|Assembly-CSharp.csproj|c:\\users\\yoshi\\onedrive\\desktop\\cs 4700\\game\\beanstalk-survivors-main\\assets\\scripts\\powerups\\rocket\\rocketlauncher.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{9D381C27-2767-AFAD-E780-BBC6B74B90CF}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\powerups\\rocket\\rocketlauncher.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{9D381C27-2767-AFAD-E780-BBC6B74B90CF}|Assembly-CSharp.csproj|c:\\users\\yoshi\\onedrive\\desktop\\cs 4700\\game\\beanstalk-survivors-main\\assets\\scripts\\enemies\\stomperai.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{9D381C27-2767-AFAD-E780-BBC6B74B90CF}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\enemies\\stomperai.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{9D381C27-2767-AFAD-E780-BBC6B74B90CF}|Assembly-CSharp.csproj|c:\\users\\yoshi\\onedrive\\desktop\\cs 4700\\game\\beanstalk-survivors-main\\assets\\scripts\\ui\\playerui.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{9D381C27-2767-AFAD-E780-BBC6B74B90CF}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\ui\\playerui.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{9D381C27-2767-AFAD-E780-BBC6B74B90CF}|Assembly-CSharp.csproj|c:\\users\\yoshi\\onedrive\\desktop\\cs 4700\\game\\beanstalk-survivors-main\\assets\\scripts\\enemies\\enemyai.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{9D381C27-2767-AFAD-E780-BBC6B74B90CF}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\enemies\\enemyai.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{9D381C27-2767-AFAD-E780-BBC6B74B90CF}|Assembly-CSharp.csproj|C:\\Users\\yoshi\\OneDrive\\Desktop\\CS 4700\\Game\\Beanstalk-Survivors-main\\assets\\scripts\\player\\weaponswitcher.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{9D381C27-2767-AFAD-E780-BBC6B74B90CF}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\player\\weaponswitcher.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{9D381C27-2767-AFAD-E780-BBC6B74B90CF}|Assembly-CSharp.csproj|c:\\users\\yoshi\\onedrive\\desktop\\cs 4700\\game\\beanstalk-survivors-main\\assets\\scripts\\enemies\\chaserai.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{9D381C27-2767-AFAD-E780-BBC6B74B90CF}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\enemies\\chaserai.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{9D381C27-2767-AFAD-E780-BBC6B74B90CF}|Assembly-CSharp.csproj|c:\\users\\yoshi\\onedrive\\desktop\\cs 4700\\game\\beanstalk-survivors-main\\assets\\scripts\\enemies\\enemyhealth.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{9D381C27-2767-AFAD-E780-BBC6B74B90CF}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\enemies\\enemyhealth.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{9D381C27-2767-AFAD-E780-BBC6B74B90CF}|Assembly-CSharp.csproj|C:\\Users\\yoshi\\OneDrive\\Desktop\\CS 4700\\Game\\Beanstalk-Survivors-main\\assets\\scripts\\player\\meleeweapon.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{9D381C27-2767-AFAD-E780-BBC6B74B90CF}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\player\\meleeweapon.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -30,72 +26,57 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 1,
+          "SelectedChildIndex": 0,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "StomperAI.cs",
-              "DocumentMoniker": "C:\\Users\\yoshi\\OneDrive\\Desktop\\CS 4700\\Game\\Beanstalk-Survivors-main\\Assets\\Scripts\\Enemies\\StomperAI.cs",
-              "RelativeDocumentMoniker": "Assets\\Scripts\\Enemies\\StomperAI.cs",
-              "ToolTip": "C:\\Users\\yoshi\\OneDrive\\Desktop\\CS 4700\\Game\\Beanstalk-Survivors-main\\Assets\\Scripts\\Enemies\\StomperAI.cs",
-              "RelativeToolTip": "Assets\\Scripts\\Enemies\\StomperAI.cs",
-              "ViewState": "AgIAAAsAAAAAAAAAAAAQwBcAAAA3AAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-04-24T18:51:39.799Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
               "DocumentIndex": 0,
-              "Title": "DeathZone.cs",
-              "DocumentMoniker": "C:\\Users\\yoshi\\OneDrive\\Desktop\\CS 4700\\Game\\Beanstalk-Survivors-main\\Assets\\Scripts\\DeathZone.cs",
-              "RelativeDocumentMoniker": "Assets\\Scripts\\DeathZone.cs",
-              "ToolTip": "C:\\Users\\yoshi\\OneDrive\\Desktop\\CS 4700\\Game\\Beanstalk-Survivors-main\\Assets\\Scripts\\DeathZone.cs",
-              "RelativeToolTip": "Assets\\Scripts\\DeathZone.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABIAAAAfAAAAAAAAAA==",
+              "Title": "RocketLauncher.cs",
+              "DocumentMoniker": "C:\\Users\\yoshi\\OneDrive\\Desktop\\CS 4700\\Game\\Beanstalk-Survivors-main\\Assets\\Scripts\\PowerUps\\Rocket\\RocketLauncher.cs",
+              "RelativeDocumentMoniker": "Assets\\Scripts\\PowerUps\\Rocket\\RocketLauncher.cs",
+              "ToolTip": "C:\\Users\\yoshi\\OneDrive\\Desktop\\CS 4700\\Game\\Beanstalk-Survivors-main\\Assets\\Scripts\\PowerUps\\Rocket\\RocketLauncher.cs",
+              "RelativeToolTip": "Assets\\Scripts\\PowerUps\\Rocket\\RocketLauncher.cs",
+              "ViewState": "AgIAACcAAAAAAAAAAAAowD4AAAAMAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-04-24T18:48:50.887Z",
+              "WhenOpened": "2026-04-26T06:58:28.917Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
-              "Title": "EnemyHealth.cs",
-              "DocumentMoniker": "C:\\Users\\yoshi\\OneDrive\\Desktop\\CS 4700\\Game\\Beanstalk-Survivors-main\\Assets\\Scripts\\Enemies\\EnemyHealth.cs",
-              "RelativeDocumentMoniker": "Assets\\Scripts\\Enemies\\EnemyHealth.cs",
-              "ToolTip": "C:\\Users\\yoshi\\OneDrive\\Desktop\\CS 4700\\Game\\Beanstalk-Survivors-main\\Assets\\Scripts\\Enemies\\EnemyHealth.cs",
-              "RelativeToolTip": "Assets\\Scripts\\Enemies\\EnemyHealth.cs",
-              "ViewState": "AgIAAAgAAAAAAAAAAAAQwBYAAAAeAAAAAAAAAA==",
+              "DocumentIndex": 1,
+              "Title": "PlayerUI.cs",
+              "DocumentMoniker": "C:\\Users\\yoshi\\OneDrive\\Desktop\\CS 4700\\Game\\Beanstalk-Survivors-main\\Assets\\Scripts\\UI\\PlayerUI.cs",
+              "RelativeDocumentMoniker": "Assets\\Scripts\\UI\\PlayerUI.cs",
+              "ToolTip": "C:\\Users\\yoshi\\OneDrive\\Desktop\\CS 4700\\Game\\Beanstalk-Survivors-main\\Assets\\Scripts\\UI\\PlayerUI.cs",
+              "RelativeToolTip": "Assets\\Scripts\\UI\\PlayerUI.cs",
+              "ViewState": "AgIAAAgAAAAAAAAAAAAQwCMAAAAFAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-04-24T18:46:56.735Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 3,
-              "Title": "ChaserAI.cs",
-              "DocumentMoniker": "C:\\Users\\yoshi\\OneDrive\\Desktop\\CS 4700\\Game\\Beanstalk-Survivors-main\\Assets\\Scripts\\Enemies\\ChaserAI.cs",
-              "RelativeDocumentMoniker": "Assets\\Scripts\\Enemies\\ChaserAI.cs",
-              "ToolTip": "C:\\Users\\yoshi\\OneDrive\\Desktop\\CS 4700\\Game\\Beanstalk-Survivors-main\\Assets\\Scripts\\Enemies\\ChaserAI.cs",
-              "RelativeToolTip": "Assets\\Scripts\\Enemies\\ChaserAI.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAIAAAAfAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-04-24T18:46:40.159Z",
+              "WhenOpened": "2026-04-26T06:06:36.486Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 2,
-              "Title": "EnemyAI.cs",
-              "DocumentMoniker": "C:\\Users\\yoshi\\OneDrive\\Desktop\\CS 4700\\Game\\Beanstalk-Survivors-main\\Assets\\Scripts\\Enemies\\EnemyAI.cs",
-              "RelativeDocumentMoniker": "Assets\\Scripts\\Enemies\\EnemyAI.cs",
-              "ToolTip": "C:\\Users\\yoshi\\OneDrive\\Desktop\\CS 4700\\Game\\Beanstalk-Survivors-main\\Assets\\Scripts\\Enemies\\EnemyAI.cs",
-              "RelativeToolTip": "Assets\\Scripts\\Enemies\\EnemyAI.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAUAAAAtAAAAAAAAAA==",
+              "Title": "WeaponSwitcher.cs",
+              "DocumentMoniker": "C:\\Users\\yoshi\\OneDrive\\Desktop\\CS 4700\\Game\\Beanstalk-Survivors-main\\Assets\\Scripts\\Player\\WeaponSwitcher.cs",
+              "RelativeDocumentMoniker": "Assets\\Scripts\\Player\\WeaponSwitcher.cs",
+              "ToolTip": "C:\\Users\\yoshi\\OneDrive\\Desktop\\CS 4700\\Game\\Beanstalk-Survivors-main\\Assets\\Scripts\\Player\\WeaponSwitcher.cs",
+              "RelativeToolTip": "Assets\\Scripts\\Player\\WeaponSwitcher.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAACUAAAAxAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-04-24T18:46:04.331Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-04-26T05:40:27.663Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "MeleeWeapon.cs",
+              "DocumentMoniker": "C:\\Users\\yoshi\\OneDrive\\Desktop\\CS 4700\\Game\\Beanstalk-Survivors-main\\Assets\\Scripts\\Player\\MeleeWeapon.cs",
+              "RelativeDocumentMoniker": "Assets\\Scripts\\Player\\MeleeWeapon.cs",
+              "ToolTip": "C:\\Users\\yoshi\\OneDrive\\Desktop\\CS 4700\\Game\\Beanstalk-Survivors-main\\Assets\\Scripts\\Player\\MeleeWeapon.cs",
+              "RelativeToolTip": "Assets\\Scripts\\Player\\MeleeWeapon.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAEAAAAeAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-26T05:37:21.321Z"
             }
           ]
         }

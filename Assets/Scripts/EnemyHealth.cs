@@ -10,6 +10,7 @@ public class EnemyHealth : MonoBehaviour, IDamageable
 
     public void TakeDamage(float damage)
     {
+        Debug.Log("Dealt -" + damage + " dmg to " + gameObject.name);
         _health -= damage;
         if (_health <= 0) Die();
     }

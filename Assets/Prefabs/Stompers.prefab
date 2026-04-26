@@ -17,7 +17,7 @@ GameObject:
   - component: {fileID: 560710513845429506}
   - component: {fileID: 6302411032006795360}
   - component: {fileID: 5033327013790746666}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Stompers
   m_TagString: Enemy
   m_Icon: {fileID: 0}

@@ -9,21 +9,19 @@ public class MeleeWeapon : MonoBehaviour
     public float attackRate = 0.5f;
     private bool isAttacking = false;
 
+
     [Header("References")]
     public Animator weaponAnimator;
     public GameObject hitbox;
 
     public void Awake()
     {
+        isAttacking = false;
         hitbox.SetActive(false);
     }
 
-    // 2. This function is called automatically by the "Player Input" 
-    // component if "Behavior" is set to "Send Messages"
     public void OnAttack(InputValue value)
     {
-        // The Input System calls this method automatically 
-        // whenever the button defined as 'Attack' is pressed.
         if (value.isPressed && !isAttacking)
         {
             StartCoroutine(PerformAttack());
@@ -50,8 +48,20 @@ public class MeleeWeapon : MonoBehaviour
         if (damageable != null)
         {
             damageable.TakeDamage(damageAmount);
-            Debug.Log("Dealt " + damageAmount + " damage to enemy");
             hitbox.SetActive(false);
         }
+    }
+    public void ResetWeapon()
+    {
+        isAttacking = false;
+        StopAllCoroutines();
+        if (weaponAnimator != null)
+        {
+            weaponAnimator.Play("Idle");
+        }
+    }
+    private void OnDisable()
+    {
+        ResetWeapon();
     }
 }

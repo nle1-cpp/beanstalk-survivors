@@ -2,11 +2,14 @@ using UnityEngine;
 
 public class DeathZone : MonoBehaviour
 {
+
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Player"))
         {
             Debug.Log("Player Triggered Death Zone");
+            GameObject playerRoot = other.transform.root.gameObject; // Get parent of PlayerObject
+            GameManager.Instance.HandlePlayerDeath(playerRoot);
         }
 
         if (other.CompareTag("Enemy"))

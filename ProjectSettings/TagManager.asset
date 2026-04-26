@@ -15,9 +15,9 @@ TagManager:
   - Water
   - UI
   - groundLayer
-  - 
-  - 
-  - 
+  - Enemy
+  - 'Projectile '
+  - Player
   - 
   - 
   - 

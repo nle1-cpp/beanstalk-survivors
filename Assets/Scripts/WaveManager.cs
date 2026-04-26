@@ -1,11 +1,14 @@
-using System; // Action
 using System.Collections;
 using System.Collections.Generic; // List
 using UnityEngine;
-using UnityEngine.SocialPlatforms;
 
 public class WaveManager : MonoBehaviour
 {
+    public GameObject[] powerupPrefabs; // Array of powerups
+    public Transform powerupSpawnPoint1;
+    public Transform powerupSpawnPoint2;
+    public float powerupSpawnChance = 0.15f;
+
 
     public List<WaveData> waves;
     public Transform[] spawnPoints;
@@ -49,8 +52,25 @@ public class WaveManager : MonoBehaviour
 
             Instantiate(prefab, spot.position, spot.rotation);
 
+            if (UnityEngine.Random.value < powerupSpawnChance)
+            {
+                SpawnMidRoundPowerup();
+            }
+
             yield return new WaitForSeconds(data.timeBetweenSpawns);
         }
+    }
+
+    private void SpawnMidRoundPowerup()
+    {
+        // Pick a random powerup from array
+        GameObject pPrefab = powerupPrefabs[UnityEngine.Random.Range(0, powerupPrefabs.Length)];
+
+        // TEMP: Pick between 2 existing spawn points
+        Transform spawnPoint = (UnityEngine.Random.value > 0.5f) ? powerupSpawnPoint1 : powerupSpawnPoint2;
+
+        Instantiate(pPrefab, spawnPoint.position, Quaternion.identity);
+        Debug.Log("Mid-round powerup spawned");
     }
 
     // Called by EnemyHealth script when an enemy dies
@@ -58,9 +78,10 @@ public class WaveManager : MonoBehaviour
     {
         _enemiesRemaining--;
         Debug.Log(_enemiesRemaining + " enemies remaining");
+
+        // When the wave is cleared, move to the next index and start the next wave
         if (_enemiesRemaining <= 0)
         {
-            Debug.Log("All enemies defeated -> Spawning next wave");
             _currentWaveIndex++;
             StartNextWave();
         }
@@ -83,4 +104,8 @@ public class WaveManager : MonoBehaviour
     {
         OnEnemyDefeated();
     }
+
+    // UI
+    public int EnemiesRemaining => _enemiesRemaining;
+    public int CurrentWave => _currentWaveIndex;
 }

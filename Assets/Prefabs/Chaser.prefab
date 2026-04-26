@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: -5104728822834543960}
   - component: {fileID: 7316494160865814937}
   - component: {fileID: -3940534341059132968}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Chaser
   m_TagString: Enemy
   m_Icon: {fileID: 0}
@@ -152,7 +152,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4743aa4ed71b5274fa07fcb77a642a74, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyHealth
-  _health: 50
+  _health: 25
 --- !u!114 &7316494160865814937
 MonoBehaviour:
   m_ObjectHideFlags: 0
