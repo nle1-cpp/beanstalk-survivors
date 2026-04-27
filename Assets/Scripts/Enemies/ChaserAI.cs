@@ -19,6 +19,9 @@ public class ChaserAI : EnemyAI
         if (health != null)
         {
             health.TakeDamage(5);
+
+            // PLAY PLAYER HURT SOUND
+            SoundManager.PlaySound(SoundType.Player_Hurt);
         }
     }
 }

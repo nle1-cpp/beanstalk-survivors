@@ -20,6 +20,10 @@ public class CrusherAI : EnemyAI
         if (health != null)
         {
             health.TakeDamage(20);
+            
+            // PLAY PLAYER HURT SOUND
+            SoundManager.PlaySound(SoundType.Player_Hurt);
+
         }
     }
 }

@@ -32,6 +32,10 @@ public class MeleeWeapon : MonoBehaviour
     {
         isAttacking = true;
         weaponAnimator.SetTrigger("Swing");
+        
+        // PLAY MELEE SOUND
+        SoundManager.PlaySound(SoundType.Weapon_Melee);
+
         yield return new WaitForSeconds(0.2f);
 
         hitbox.SetActive(true);

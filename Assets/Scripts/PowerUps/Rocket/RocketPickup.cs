@@ -19,6 +19,10 @@ public class RocketPickup : MonoBehaviour
             if (rl != null)
             {
                 rl.GrantWeapon(ammoGrant);
+                
+                // PLAY PICKUP SOUND
+                SoundManager.PlaySound(SoundType.Weapon_Pickup);
+
                 Destroy(gameObject);
             }
         }

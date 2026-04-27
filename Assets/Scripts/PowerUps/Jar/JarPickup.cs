@@ -20,6 +20,10 @@ public class JarPickup : MonoBehaviour
             if (ja != null)
             {
                 ja.GrantJar(jarGrant);
+
+                // PLAY PICKUP SOUND
+                SoundManager.PlaySound(SoundType.Weapon_Pickup);
+
                 Destroy(gameObject);
             }
         }

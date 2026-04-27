@@ -40,6 +40,10 @@ public class JarAbility : MonoBehaviour
         Rigidbody rb = jar.GetComponent<Rigidbody>();
         rb.AddForce(firePoint.forward * throwForce, ForceMode.Impulse);
 
+        // PLAY THROW SOUND
+        SoundManager.PlaySound(SoundType.Weapon_Jar_Fire);
+
+
         numJars--;
 
         // Cooldown

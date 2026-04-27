@@ -45,6 +45,10 @@ public class StomperAI : EnemyAI
         if (health != null)
         {
             health.TakeDamage(10);
+
+            // PLAY PLAYER HURT SOUND
+            SoundManager.PlaySound(SoundType.Player_Hurt);
+
         }
     }
 

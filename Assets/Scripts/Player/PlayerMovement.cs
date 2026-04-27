@@ -20,6 +20,11 @@ public class PlayerMovement : MonoBehaviour
     public bool isGrounded;
     public Transform orientation;
 
+    // FOOTSTEP + LANDING TRACKING
+    private bool wasGrounded;
+    private float footstepTimer;
+    public float footstepDelay = 0.4f;
+
     // double jump
     // public int MaxJumps = 2;
     // private int _jumpCount = 0;
@@ -56,6 +61,13 @@ public class PlayerMovement : MonoBehaviour
         // Check if grounded
         isGrounded = Physics.Raycast(transform.position, Vector3.down, playerHeight * 0.5f + 0.2f, groundLayer);
 
+        // LAND SOUND (trigger once when hitting ground)
+        if (!wasGrounded && isGrounded)
+        {
+            SoundManager.PlaySound(SoundType.Player_Land);
+        }
+        wasGrounded = isGrounded;
+
         // Read Player Movement Direction
         horizontalInput = moveAction.ReadValue<Vector3>().x;
         verticalInput = moveAction.ReadValue<Vector3>().y;
@@ -74,6 +86,21 @@ public class PlayerMovement : MonoBehaviour
             Jump();
         }
 
+        // FOOTSTEPS SOUND (only when grounded and moving)
+        if (isGrounded && currVelocity.magnitude > 0.1f)
+        {
+            footstepTimer -= Time.deltaTime;
+            if (footstepTimer <= 0f)
+            {
+                SoundManager.PlaySound(SoundType.Player_Footstep);
+                footstepTimer = footstepDelay;
+            }
+        }
+        else
+        {
+            footstepTimer = 0f; // reset timer when not moving or in air
+        }
+
         // Apply ground drag when grounded
         if (isGrounded)
         {
@@ -86,7 +113,6 @@ public class PlayerMovement : MonoBehaviour
 
     private void FixedUpdate()
     {
-
         // Move Player
         moveDirection = orientation.forward * verticalInput + orientation.right * horizontalInput;
         if (isGrounded) {
@@ -104,6 +130,9 @@ public class PlayerMovement : MonoBehaviour
 
         // Apply jump force once
         rb.AddForce(transform.up * jumpForce, ForceMode.Impulse);
+    
+        // PLAY JUMP SOUND
+        SoundManager.PlaySound(SoundType.Player_Jump);   
     }
 
 }

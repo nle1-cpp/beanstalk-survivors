@@ -17,6 +17,7 @@ public class WeaponSwitcher : MonoBehaviour
         rocketLauncherObject.SetActive(false);
         jarObject.SetActive(false);
         meleeWeaponObject.SetActive(true);
+
     }
 
     public void SwitchToRocket()
@@ -38,14 +39,19 @@ public class WeaponSwitcher : MonoBehaviour
     public void OnPrevious(InputValue value) // 1
     {
         SwitchToMelee();
+        SoundManager.PlaySound(SoundType.Weapon_Switch);   // Play switch sound
+
     }
     public void OnNext(InputValue value) // 2
     {
         SwitchToRocket();
+        SoundManager.PlaySound(SoundType.Weapon_Switch);   // Play switch sound
+
     }
 
     public void OnJar(InputValue value) // 3
     {
         SwitchToJar();
+        SoundManager.PlaySound(SoundType.Weapon_Switch);   // Play switch sound
     }
 }

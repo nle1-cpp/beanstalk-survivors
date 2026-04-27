@@ -23,6 +23,11 @@ public class Projectile : MonoBehaviour
             Health playerHealth = other.GetComponentInParent<Health>();
 
             playerHealth.TakeDamage(damage);
+            
+            // PLAY PLAYER HURT SOUND
+            SoundManager.PlaySound(SoundType.Player_Hurt);
+
+
             Destroy(gameObject);
         }
     }

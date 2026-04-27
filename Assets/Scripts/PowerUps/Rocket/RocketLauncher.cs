@@ -41,6 +41,9 @@ public class RocketLauncher : MonoBehaviour
         Vector3 recoilVector = -firePoint.forward * recoilForce;
         playerRigidbody.AddForce(recoilVector, ForceMode.Impulse);
 
+        // PLAY FIRE SOUND
+        SoundManager.PlaySound(SoundType.Weapon_Rocket_Fire);
+
         // Spawn Projectile
         GameObject rocketObj = Instantiate(rocketPrefab, firePoint.position, firePoint.rotation);
 
