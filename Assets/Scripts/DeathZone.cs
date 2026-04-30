@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class DeathZone : MonoBehaviour
 {
-
+    public Health player;
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Player"))

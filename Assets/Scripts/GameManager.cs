@@ -9,6 +9,8 @@ public class GameManager : MonoBehaviour
     [Header("Temporary Respawn Settings")]
     public Transform playerRespawnPoint;
 
+    public GameObject gameOverUI;
+
     private void Awake()
     {
         if (Instance != null && Instance != this)
@@ -44,6 +46,19 @@ public class GameManager : MonoBehaviour
 
             Debug.Log("Player respawned at: " + playerRespawnPoint.position);
         }
+    }
+
+    public void GameOver()
+    {
+        gameOverUI.SetActive(true);
+        Cursor.visible = true;
+        Cursor.lockState = CursorLockMode.None;
+    }
+
+    public void Retry()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        Time.timeScale = 1f;
     }
 
     public void ResetToTitle()
