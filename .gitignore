@@ -1,6 +1,10 @@
 *.unitypackage
 *.unitypackage.meta
 
+*.sln
+*.slnx
+*.csproj
+
 Builds/
 Library/
 Logs/
@@ -9,3 +13,7 @@ UserSettings/
 UIElementsSchema/
 
 .vscode
+/Assets/_Recovery*
+/.vs
+/obj
+/.vsconfig
