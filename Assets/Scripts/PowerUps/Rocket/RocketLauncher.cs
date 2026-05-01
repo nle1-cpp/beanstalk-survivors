@@ -8,18 +8,22 @@ public class RocketLauncher : MonoBehaviour
     [SerializeField] private GameObject rocketPrefab;
     [SerializeField] private Transform firePoint;
     [SerializeField] private Rigidbody playerRigidbody;
-    [SerializeField] private WeaponSwitcher switcher;
 
     [Header("Rocket Jump Settings")]
     [SerializeField] private float recoilForce = 10f;
     [SerializeField] private float fireCooldown = 2.5f;
 
     [Header("Ammo")]
-    public int currentAmmo = 0;
+    public int currentAmmo;
     public int maxAmmo = 10;
 
     [Header("Debug")]
     private bool isAttacking = false;
+
+    void Awake()
+    {
+        currentAmmo = 0;
+    }
 
     public void OnAttack(InputValue value)
     {
@@ -71,6 +75,11 @@ public class RocketLauncher : MonoBehaviour
     }
 
     private void OnDisable()
+    {
+        isAttacking = false;
+    }
+
+    private void OnEnable()
     {
         isAttacking = false;
     }

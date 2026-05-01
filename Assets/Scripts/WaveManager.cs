@@ -1,20 +1,24 @@
 using System.Collections;
 using System.Collections.Generic; // List
 using UnityEngine;
+using UnityEngine.UI; // Image component
 
 public class WaveManager : MonoBehaviour
 {
     public GameObject[] powerupPrefabs; // Array of powerups
-    public Transform powerupSpawnPoint1;
-    public Transform powerupSpawnPoint2;
+    public Transform[] powerupSpawnPoints; // Array of powerup spawnpoints
     public float powerupSpawnChance = 0.15f;
 
-
     public List<WaveData> waves;
-    public Transform[] spawnPoints;
+    public Transform[] enemySpawnPoints; // Array of enemy spawnpoints
 
-    private int _currentWaveIndex = 0;
+    private int _currentWaveIndex;
     private int _enemiesRemaining;
+
+    [Header("Wave Clear Settings")]
+    public Image flashImage;
+    public Color winFlashColor = new Color(0, 1, 0, 0.4f); // Green at 40% alpha
+    public float flashDuration = 1f;
 
     void Start()
     {
@@ -26,7 +30,38 @@ public class WaveManager : MonoBehaviour
         {
             Debug.LogError("WaveManager: GameManager.Instance is still null in Start");
         }
+        _currentWaveIndex = 0;
+        StartNextWave();
+    }
 
+    IEnumerator WaveClearRoutine()
+    {
+        // Flash Green
+        if (flashImage != null)
+        {
+            flashImage.color = winFlashColor;
+
+            // Fade out the green flash
+            float elapsed = 0f;
+            while (elapsed < flashDuration)
+            {
+                elapsed += Time.deltaTime;
+                float alpha = Mathf.Lerp(winFlashColor.a, 0, elapsed / flashDuration);
+                flashImage.color = new Color(winFlashColor.r, winFlashColor.g, winFlashColor.b, alpha);
+                yield return null;
+            }
+        }
+
+        // Spawn specific powerup
+        Transform spawnPoint = powerupSpawnPoints[4]; // midair spawnpoint
+        Instantiate(powerupPrefabs[0], spawnPoint.position, Quaternion.identity);
+        Debug.Log("Powerup spawned");
+
+        // Pause
+        yield return new WaitForSeconds(5.0f);
+        
+
+        // Start the next wave
         StartNextWave();
     }
 
@@ -48,11 +83,11 @@ public class WaveManager : MonoBehaviour
         {
             // Pick random enemy + random spawn point
             GameObject prefab = data.enemyPrefabs[UnityEngine.Random.Range(0, data.enemyPrefabs.Length)];
-            Transform spot = spawnPoints[UnityEngine.Random.Range(0, spawnPoints.Length)];
+            Transform spot = enemySpawnPoints[UnityEngine.Random.Range(0, enemySpawnPoints.Length)];
 
             Instantiate(prefab, spot.position, spot.rotation);
 
-            if (UnityEngine.Random.value < powerupSpawnChance)
+            if (UnityEngine.Random.value < powerupSpawnChance) // powerup spawn chance (random)
             {
                 SpawnMidRoundPowerup();
             }
@@ -63,14 +98,18 @@ public class WaveManager : MonoBehaviour
 
     private void SpawnMidRoundPowerup()
     {
-        // Pick a random powerup from array
+        // Ensure array is assigned and not empty
+        if (powerupPrefabs.Length == 0 || powerupSpawnPoints.Length == 0) return;
+
+        // Pick random powerup from array
         GameObject pPrefab = powerupPrefabs[UnityEngine.Random.Range(0, powerupPrefabs.Length)];
 
-        // TEMP: Pick between 2 existing spawn points
-        Transform spawnPoint = (UnityEngine.Random.value > 0.5f) ? powerupSpawnPoint1 : powerupSpawnPoint2;
+        // Pick a random spawn point from array
+        int randomIndex = UnityEngine.Random.Range(0, powerupSpawnPoints.Length);
+        Transform spawnPoint = powerupSpawnPoints[randomIndex];
 
         Instantiate(pPrefab, spawnPoint.position, Quaternion.identity);
-        Debug.Log("Mid-round powerup spawned");
+        Debug.Log($"Mid-round powerup spawned at point {randomIndex}");
     }
 
     // Called by EnemyHealth script when an enemy dies
@@ -79,11 +118,11 @@ public class WaveManager : MonoBehaviour
         _enemiesRemaining--;
         Debug.Log(_enemiesRemaining + " enemies remaining");
 
-        // When the wave is cleared, move to the next index and start the next wave
+        // When the wave is cleared -> move to next index and start next wave routine
         if (_enemiesRemaining <= 0)
         {
             _currentWaveIndex++;
-            StartNextWave();
+            StartCoroutine(WaveClearRoutine());
         }
     }
 

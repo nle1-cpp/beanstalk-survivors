@@ -7,6 +7,7 @@ public class PlayerUI : MonoBehaviour
     [SerializeField] private TextMeshProUGUI healthText;
     [SerializeField] private TextMeshProUGUI ammoText;
     [SerializeField] private TextMeshProUGUI jarCountText;
+    [SerializeField] private TextMeshProUGUI dashCountText;
     [SerializeField] private TextMeshProUGUI enemiesText;
     [SerializeField] private TextMeshProUGUI waveText;
 
@@ -15,6 +16,7 @@ public class PlayerUI : MonoBehaviour
     [SerializeField] private RocketLauncher rocketLauncher;
     [SerializeField] private WaveManager waveManager;
     [SerializeField] private JarAbility jarAbility;
+    [SerializeField] private DashAbility dashAbility;
 
     void Update()
     {
@@ -28,10 +30,13 @@ public class PlayerUI : MonoBehaviour
             waveText.text = $"{waveManager.CurrentWave + 1}";
         }
 
-        // Rocket Ammo Logic
+        // Rocket Ammo
         if (rocketLauncher != null) ammoText.text = $"{rocketLauncher.currentAmmo}";
 
-        // Jar Count Logic
+        // Jar Count
         if (jarAbility != null) jarCountText.text = $"{jarAbility.numJars}";
+
+        // Dash Count
+        if (dashAbility != null) dashCountText.text = $"{dashAbility.numDashes}";
     }
 }
