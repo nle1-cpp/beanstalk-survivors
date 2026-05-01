@@ -62,14 +62,19 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\Scripts\PowerUps\BobAndRotate.cs" />
+    <Compile Include="Assets\Scripts\PowerUps\Dash\DashAbility.cs" />
+    <Compile Include="Assets\Scripts\Title Screen\CameraRotator.cs" />
     <Compile Include="Assets\Scripts\Enemies\Projectile.cs" />
     <Compile Include="Assets\Scripts\PowerUps\Rocket\RocketLauncher.cs" />
     <Compile Include="Assets\Scripts\WaveData.cs" />
     <Compile Include="Assets\Scripts\Sound\SoundManager.cs" />
     <Compile Include="Assets\Scripts\Player\WeaponSwitcher.cs" />
+    <Compile Include="Assets\Scripts\PowerUps\Dash\DashHitboxSensor.cs" />
     <Compile Include="Assets\Scripts\PowerUps\Jar\JarAbility.cs" />
     <Compile Include="Assets\TutorialInfo\Scripts\Readme.cs" />
     <Compile Include="Assets\Scripts\PowerUps\Jar\TemporaryPlatform.cs" />
+    <Compile Include="Assets\Scripts\UI\SceneOptions.cs" />
+    <Compile Include="Assets\Scripts\PowerUps\Dash\DashPickup.cs" />
     <Compile Include="Assets\Scripts\DeathZone.cs" />
     <Compile Include="Assets\Scripts\PowerUps\Rocket\RocketProjectile.cs" />
     <Compile Include="Assets\Scripts\Health.cs" />
@@ -77,6 +82,7 @@
     <Compile Include="Assets\Scripts\Enemies\ChaserAI.cs" />
     <Compile Include="Assets\Scripts\Enemies\CrusherAI.cs" />
     <Compile Include="Assets\Scripts\Player\MeleeWeapon.cs" />
+    <Compile Include="Assets\Scripts\BreakablePlatform.cs" />
     <Compile Include="Assets\Scripts\UI\PlayerUI.cs" />
     <Compile Include="Assets\Scripts\IDamageable.cs" />
     <Compile Include="Assets\Scripts\Player\PlayerCamera.cs" />
@@ -84,6 +90,7 @@
     <Compile Include="Assets\Scripts\Enemies\ShooterAI.cs" />
     <Compile Include="Assets\Scripts\PowerUps\Jar\JarPickup.cs" />
     <Compile Include="Assets\Scripts\EnemyHealth.cs" />
+    <Compile Include="Assets\Scripts\PowerUps\Heart\HeartPickup.cs" />
     <Compile Include="Assets\Scripts\WaveManager.cs" />
     <Compile Include="Assets\Scripts\Player\CameraOnPlayer.cs" />
     <Compile Include="Assets\Scripts\GameManager.cs" />
@@ -91,6 +98,7 @@
     <Compile Include="Assets\Scripts\Enemies\StomperAI.cs" />
     <Compile Include="Assets\Scripts\Player\MeleeHitboxSensor.cs" />
     <Compile Include="Assets\Scripts\Player\PlayerMovement.cs" />
+    <Compile Include="Assets\Scripts\UI\Highscore.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />
@@ -108,6 +116,7 @@
     <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF-Mobile SSD.shader" />
     <None Include="Assets\TextMesh Pro\Resources\LineBreaking Leading Characters.txt" />
     <None Include="Assets\TextMesh Pro\Shaders\TMPro_Properties.cginc" />
+    <None Include="Assets\SimpleSky\ReadMe.txt" />
     <None Include="Assets\TextMesh Pro\Shaders\TMPro_Surface.cginc" />
     <None Include="Assets\TextMesh Pro\Resources\LineBreaking Following Characters.txt" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF-Mobile Masking.shader" />
@@ -1166,6 +1175,10 @@
       <HintPath>Library\ScriptAssemblies\Unity.RenderPipelines.Core.Editor.dll</HintPath>
       <Private>False</Private>
     </Reference>
+    <Reference Include="Unity.2D.Sprite.Editor">
+      <HintPath>Library\ScriptAssemblies\Unity.2D.Sprite.Editor.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
     <Reference Include="UnityEditor.UI.Analytics">
       <HintPath>Library\ScriptAssemblies\UnityEditor.UI.Analytics.dll</HintPath>
       <Private>False</Private>
@@ -1348,6 +1361,10 @@
     </Reference>
     <Reference Include="Unity.ShaderGraph.Editor">
       <HintPath>Library\ScriptAssemblies\Unity.ShaderGraph.Editor.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Unity.2D.Sprite.AIIntegration.Editor">
+      <HintPath>Library\ScriptAssemblies\Unity.2D.Sprite.AIIntegration.Editor.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="Unity.RenderPipelines.Core.Editor.Shared">

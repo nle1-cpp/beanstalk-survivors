@@ -135,4 +135,13 @@ public class PlayerMovement : MonoBehaviour
         SoundManager.PlaySound(SoundType.Player_Jump);   
     }
 
+    public void ApplyDashForce(Vector3 direction, float force)
+    {
+        // Zero out current velocity first for a consistent dash distance
+        rb.linearVelocity = Vector3.zero;
+
+        // Apply the burst of speed
+        rb.AddForce(direction * force, ForceMode.Impulse);
+    }
+
 }

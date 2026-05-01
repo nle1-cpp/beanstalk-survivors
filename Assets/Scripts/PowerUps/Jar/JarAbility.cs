@@ -8,15 +8,19 @@ public class JarAbility : MonoBehaviour
     [SerializeField] private GameObject jarPrefab;
     [SerializeField] private GameObject jarInHand;
     [SerializeField] private Transform firePoint;
-    [SerializeField] private WeaponSwitcher switcher;
 
     [Header("Settings")]
     [SerializeField] private float throwForce = 10f;
 
     [Header("Jars")]
-    public int numJars = 0;
+    public int numJars;
 
     private bool isThrowing = false;
+
+    void Awake()
+    {
+        numJars = 0;
+    }
 
     public void OnAttack(InputValue value)
     {
@@ -51,6 +55,11 @@ public class JarAbility : MonoBehaviour
         isThrowing = false;
     }
     private void OnDisable()
+    {
+        isThrowing = false;
+    }
+
+    private void OnEnable()
     {
         isThrowing = false;
     }

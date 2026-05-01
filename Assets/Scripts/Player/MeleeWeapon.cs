@@ -16,7 +16,7 @@ public class MeleeWeapon : MonoBehaviour
 
     public void Awake()
     {
-        isAttacking = false;
+        ResetWeapon();
         hitbox.SetActive(false);
     }
 
@@ -64,6 +64,7 @@ public class MeleeWeapon : MonoBehaviour
             weaponAnimator.Play("Idle");
         }
     }
+
     private void OnDisable()
     {
         ResetWeapon();

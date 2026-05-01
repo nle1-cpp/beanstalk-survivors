@@ -12,8 +12,8 @@ public class ThrowableJar : MonoBehaviour
 
     private IEnumerator LifeCycle()
     {
-        // Wait 1 second after spawning/throwing
-        yield return new WaitForSeconds(1f);
+        // Wait a bit after throwing
+        yield return new WaitForSeconds(0.75f);
 
         // Spawn the platform at jar's current position
         if (platformPrefab != null)

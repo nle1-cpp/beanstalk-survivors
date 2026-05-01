@@ -24,7 +24,8 @@ public enum SoundType
     Enemy_Spawn,
     Enemy_Attack,
     Enemy_Hurt,
-    Enemy_Death
+    Enemy_Death,
+    Stomper_Cloud
 }
 
 [RequireComponent(typeof(AudioSource))]

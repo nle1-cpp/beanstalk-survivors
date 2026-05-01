@@ -16,10 +16,9 @@ GameObject:
   - component: {fileID: 603166680629123328}
   - component: {fileID: 560710513845429506}
   - component: {fileID: 6302411032006795360}
-  - component: {fileID: 5033327013790746666}
   m_Layer: 7
   m_Name: Stompers
-  m_TagString: Enemy
+  m_TagString: Stomper
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -165,10 +164,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::StomperAI
   pathUpdateDelay: 0.2
-  cloud1: {fileID: 0}
-  cloud2: {fileID: 0}
-  cloud3: {fileID: 0}
-  cloud4: {fileID: 0}
 --- !u!54 &6302411032006795360
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -196,24 +191,3 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 112
   m_CollisionDetection: 1
---- !u!135 &5033327013790746666
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8361169035135575420}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 1
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Radius: 0.5
-  m_Center: {x: 0, y: 0, z: 0}

@@ -45,4 +45,8 @@ public class PlayerCamera : MonoBehaviour
         playerOrientation.rotation = Quaternion.Euler(0, yRotation, 0);
     }
 
+    private void OnApplicationPause(bool pause)
+    {
+        
+    }
 }

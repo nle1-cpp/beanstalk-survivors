@@ -42,7 +42,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 634392731448078938}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: eac4921202b58c0ffaab3cffa1d19cf1, type: 3}
+  m_Script: {fileID: 11500000, guid: 25d30f986ca46fa42b256437ef7adb02, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CameraMovement
   cameraPosition: {fileID: 4556846290553209776}
@@ -726,7 +726,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 6815408536778390318}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d5d735472d8f5ebd5a32680061f313b3, type: 3}
+  m_Script: {fileID: 11500000, guid: bc3e265e57968314d90252c8142a6dbd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerMovement
   moveSpeed: 10
@@ -739,7 +739,6 @@ MonoBehaviour:
     m_Bits: 64
   isGrounded: 0
   orientation: {fileID: 6154599537794840629}
-  footstepDelay: 0.4
 --- !u!114 &1129159921875045309
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -869,7 +868,6 @@ MonoBehaviour:
   recoilForce: 8
   fireCooldown: 2.5
   currentAmmo: 0
-  maxAmmo: 10
 --- !u!1 &8516830589730150418
 GameObject:
   m_ObjectHideFlags: 0
@@ -955,7 +953,7 @@ GameObject:
   - component: {fileID: 3169315006124232198}
   - component: {fileID: 3504978960528922522}
   - component: {fileID: 2981371220348069831}
-  - component: {fileID: 5910295768198464443}
+  - component: {fileID: 2675363538277656655}
   m_Layer: 0
   m_Name: PlayerCamera
   m_TagString: MainCamera
@@ -1084,7 +1082,7 @@ MonoBehaviour:
     m_VarianceClampScale: 0.9
     m_ContrastAdaptiveSharpening: 0
   m_Version: 2
---- !u!114 &5910295768198464443
+--- !u!114 &2675363538277656655
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1093,7 +1091,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 9092953403199176869}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 17e6ee4779a2d46c3b0efb423b809c37, type: 3}
+  m_Script: {fileID: 11500000, guid: 09d0584d14f99e3499555122ae6dbc75, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerCamera
   xSensitivity: 3

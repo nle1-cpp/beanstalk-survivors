@@ -112,8 +112,8 @@ CapsuleCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.5
-  m_Height: 2
+  m_Radius: 2
+  m_Height: 4
   m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &5613130901089252879
@@ -128,7 +128,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 28afd019315193d4fb6be6b1d2df7eff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::JarPickup
-  jars: 1
+  jarGrant: 1
 --- !u!114 &4527611650368356960
 MonoBehaviour:
   m_ObjectHideFlags: 0

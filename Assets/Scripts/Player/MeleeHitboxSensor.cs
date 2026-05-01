@@ -6,11 +6,8 @@ public class MeleeHitboxSensor : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        Debug.Log($"Hitbox touched: {other.name}");
-
-        if (other.CompareTag("Enemy"))
+        if (other.CompareTag("Enemy") || other.CompareTag("Stomper"))
         {
-            Debug.Log("Hit object with Enemy tag");
             weaponLogic.ProcessHit(other);
         }
     }
