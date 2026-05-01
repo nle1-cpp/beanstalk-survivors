@@ -12,6 +12,7 @@ Temp/
 UserSettings/
 UIElementsSchema/
 
+**/.DS_Store
 .vscode
 /Assets/_Recovery*
 /.vs
