@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Cloud
   - Leaf
+  - Enemy
   layers:
   - Default
   - TransparentFX
@@ -14,9 +15,9 @@ TagManager:
   - Water
   - UI
   - groundLayer
-  - 
-  - 
-  - 
+  - Enemy
+  - 'Projectile '
+  - Player
   - 
   - 
   - 

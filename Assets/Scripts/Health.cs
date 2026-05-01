@@ -1,10 +1,5 @@
 using UnityEngine;
 
-public interface IDamageable
-{
-    void TakeDamage(float amount);
-}
-
 public class Health : MonoBehaviour, IDamageable
 {
     public float maxHealth = 100f;
@@ -28,4 +23,11 @@ public class Health : MonoBehaviour, IDamageable
         //if (CompareTag("Player")) GameManager.Instance.ResetToTitle();
         //else Destroy(gameObject);
     }
+
+    public void Kill()
+    {
+        Debug.Log("Killed Player");
+    }
+
+    public int CurrentHealth => (int)currentHealth; // UI
 }
