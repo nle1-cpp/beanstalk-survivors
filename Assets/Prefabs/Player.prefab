@@ -167,7 +167,7 @@ Rigidbody:
     m_Bits: 0
   m_ImplicitCom: 1
   m_ImplicitTensor: 1
-  m_UseGravity: 1
+  m_UseGravity: 0
   m_IsKinematic: 1
   m_Interpolate: 0
   m_Constraints: 0
@@ -739,6 +739,16 @@ MonoBehaviour:
     m_Bits: 64
   isGrounded: 0
   orientation: {fileID: 6154599537794840629}
+  groundCheckRadius: 0.28
+  groundCheckOffset: 0.08
+  maxAirJumps: 3
+  airJumpRefillInterval: 0.35
+  groundAcceleration: 40
+  airAcceleration: 14
+  gravity: -30
+  terminalVelocity: -40
+  groundedStickVelocity: -2
+  footstepDelay: 0.4
 --- !u!114 &1129159921875045309
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -766,7 +776,7 @@ MonoBehaviour:
   m_ActionEvents: []
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
-  m_DefaultActionMap: 
+  m_DefaultActionMap: Player
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
 --- !u!114 &2849581921951317622

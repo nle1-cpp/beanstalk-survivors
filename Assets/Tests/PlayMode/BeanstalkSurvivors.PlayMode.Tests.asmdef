@@ -1,0 +1,11 @@
+{
+  "name": "BeanstalkSurvivors.PlayMode.Tests",
+  "references": [
+    "BeanstalkSurvivors.Runtime"
+  ],
+  "optionalUnityReferences": [
+    "TestAssemblies"
+  ],
+  "includePlatforms": [],
+  "excludePlatforms": []
+}
