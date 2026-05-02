@@ -1,8 +1,15 @@
 fileFormatVersion: 2
+<<<<<<<< HEAD:Assets/Fonts/upheavtt SDF.asset.meta
 guid: 33a863073440d1346866fd70420edd44
 NativeFormatImporter:
   externalObjects: {}
   mainObjectFileID: 11400000
+========
+guid: a3a10fb7c2e90d545b13e5709454dd39
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 13400000
+>>>>>>>> origin:Assets/Materials/Cloud Bounce.physicMaterial.meta
   userData: 
   assetBundleName: 
   assetBundleVariant: 
