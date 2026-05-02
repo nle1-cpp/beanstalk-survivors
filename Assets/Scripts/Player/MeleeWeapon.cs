@@ -52,6 +52,8 @@ public class MeleeWeapon : MonoBehaviour
         if (damageable != null)
         {
             damageable.TakeDamage(damageAmount);
+            // PLAY ENEMY HURT SOUND
+            SoundManager.PlaySound(SoundType.Enemy_Hurt_Melee);
             hitbox.SetActive(false);
         }
     }

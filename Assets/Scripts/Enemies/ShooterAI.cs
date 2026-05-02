@@ -41,6 +41,7 @@ public class ShooterAI : EnemyAI
 
     void Shoot()
     {
+        SoundManager.PlaySound(SoundType.Enemy_Shoot);
         Instantiate(projectilePrefab, firePoint.position, firePoint.rotation);
     }
 }

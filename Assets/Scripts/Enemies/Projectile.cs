@@ -25,7 +25,7 @@ public class Projectile : MonoBehaviour
             playerHealth.TakeDamage(damage);
             
             // PLAY PLAYER HURT SOUND
-            SoundManager.PlaySound(SoundType.Player_Hurt);
+            SoundManager.PlaySound(SoundType.Player_Hurt_Projectile);
 
 
             Destroy(gameObject);

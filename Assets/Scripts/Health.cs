@@ -65,6 +65,10 @@ public class Health : MonoBehaviour, IDamageable
     public void Die()
     {
         isDead = true;
+
+        // PLAY DEATH SOUND
+        SoundManager.PlaySound(SoundType.Player_Death);
+
         GameManager.Instance.GameOver();
         Time.timeScale = 0f;
         Debug.Log("Trigger Death");

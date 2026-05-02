@@ -366,6 +366,9 @@ public class PlayerMovement : MonoBehaviour
 
     public void ApplyDashForce(Vector3 direction, float force)
     {
+        // PLAY DASH SOUND
+        SoundManager.PlaySound(SoundType.Player_Dash);   
+
         // Zero out current velocity first for a consistent dash distance
         rb.linearVelocity = Vector3.zero;
 

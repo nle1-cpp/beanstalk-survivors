@@ -54,6 +54,9 @@ public class WaveManager : MonoBehaviour
 
     IEnumerator WaveClearRoutine()
     {
+        // PLAY WAVE CLEAR SOUND
+        SoundManager.PlaySound(SoundType.BGM_Clear);
+
         // Flash Green
         if (flashImage != null)
         {
