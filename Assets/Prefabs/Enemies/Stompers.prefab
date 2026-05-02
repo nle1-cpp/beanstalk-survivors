@@ -142,7 +142,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 112
   m_CollisionDetection: 1
-<<<<<<< HEAD
 --- !u!1001 &125438846071423408
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -221,5 +220,3 @@ Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 9873318a85ea1594a9bbae535e960d41, type: 3}
   m_PrefabInstance: {fileID: 125438846071423408}
   m_PrefabAsset: {fileID: 0}
-=======
->>>>>>> origin

@@ -59,10 +59,6 @@ public class MeleeWeapon : MonoBehaviour
     {
         isAttacking = false;
         StopAllCoroutines();
-        if (weaponAnimator != null)
-        {
-            weaponAnimator.Play("Idle");
-        }
     }
 
     private void OnDisable()
