@@ -82,8 +82,19 @@ public class WaveManager : MonoBehaviour
         for (int i = 0; i < data.totalToSpawn; i++)
         {
             // Pick random enemy + random spawn point
-            GameObject prefab = data.enemyPrefabs[UnityEngine.Random.Range(0, data.enemyPrefabs.Length)];
-            Transform spot = enemySpawnPoints[UnityEngine.Random.Range(0, enemySpawnPoints.Length)];
+            int rand = UnityEngine.Random.Range(0, data.enemyPrefabs.Length);
+            GameObject prefab = data.enemyPrefabs[rand];
+
+            Transform spot;
+            // Stompers should not be able to spawn on cloud platforms (unreactable)
+            if (rand == 3) // If it is a stomper ->
+            {
+                spot = enemySpawnPoints[UnityEngine.Random.Range(0, 9)]; // Leaf spawns (omit cloud spawns)
+            }
+            else // All other enemies
+            {
+                spot = enemySpawnPoints[UnityEngine.Random.Range(0, enemySpawnPoints.Length)]; // All spawns
+            }
 
             Instantiate(prefab, spot.position, spot.rotation);
 

@@ -16,6 +16,7 @@ GameObject:
   - component: {fileID: -5104728822834543960}
   - component: {fileID: 7316494160865814937}
   - component: {fileID: -3940534341059132968}
+  - component: {fileID: 8926156531735776216}
   m_Layer: 7
   m_Name: Chaser
   m_TagString: Enemy
@@ -193,3 +194,17 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 112
   m_CollisionDetection: 1
+--- !u!114 &8926156531735776216
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7327424375725327766}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0281719d968159244b31eca729e523de, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::EnemyJumpHandler
+  jumpHeight: 4
+  jumpDuration: 1.2
