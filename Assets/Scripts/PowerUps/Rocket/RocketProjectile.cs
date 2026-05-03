@@ -35,9 +35,9 @@ public class RocketProjectile : MonoBehaviour
         Collider[] hitColliders = Physics.OverlapSphere(transform.position, explosionRadius, enemyLayer);
         foreach (var hitCollider in hitColliders)
         {
-            if (hitCollider.TryGetComponent(out IDamageable damageable))
+            if (hitCollider.GetComponentInParent<IDamageable>() != null)
             {
-                damageable.TakeDamage(explosionDamage);
+                hitCollider.GetComponentInParent<IDamageable>().TakeDamage(explosionDamage);
             }
         }
 

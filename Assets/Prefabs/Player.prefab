@@ -139,7 +139,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 1}
-  m_LocalScale: {x: 2, y: 1, z: 1.4}
+  m_LocalScale: {x: 2.25, y: 1.5, z: 2.25}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 3896778977973144087}
@@ -445,7 +445,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 2, y: 3, z: 2}
+  m_LocalScale: {x: 5, y: 3, z: 5}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 4948787314531976944}
@@ -1121,6 +1121,17 @@ MonoBehaviour:
   - name: Stomper_Cloud
     sounds:
     - {fileID: 8300000, guid: 4f6441000dca745479436fa6723169dc, type: 3}
+  - name: Cat_Ascend
+    sounds: []
+  - name: Cat_Start
+    sounds:
+    - {fileID: 8300000, guid: 63e0ec409d76cfa44a929d1bb009d616, type: 3}
+  - name: Cat_Windup
+    sounds:
+    - {fileID: 8300000, guid: 12d77f6c4af291248a13520dbcd60416, type: 3}
+  - name: Cat_Charge
+    sounds:
+    - {fileID: 8300000, guid: f6fb29b36b915534db33a0ac93269fba, type: 3}
 --- !u!1 &7721738898808918185
 GameObject:
   m_ObjectHideFlags: 0
@@ -1203,8 +1214,8 @@ MonoBehaviour:
   playerRigidbody: {fileID: 851589175345362888}
   recoilForce: 10
   fireCooldown: 1
-  currentAmmo: 5
-  maxAmmo: 15
+  currentAmmo: 20
+  maxAmmo: 20
 --- !u!1 &8516830589730150418
 GameObject:
   m_ObjectHideFlags: 0

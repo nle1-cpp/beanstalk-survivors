@@ -57,12 +57,16 @@ public class MeleeWeapon : MonoBehaviour
     }
     public void ResetWeapon()
     {
-        isAttacking = false;
-        StopAllCoroutines();
+        isAttacking = false; // Reset bool guard
+        StopAllCoroutines(); // Kill any active attack timing
+
         if (weaponAnimator != null)
         {
-            weaponAnimator.Play("Idle");
+            weaponAnimator.Play("Idle"); // Force animator back to start
         }
+
+        // Reset physical position if it gets stuck
+        transform.localRotation = Quaternion.identity;
     }
 
     private void OnDisable()

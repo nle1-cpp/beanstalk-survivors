@@ -132,9 +132,9 @@ MonoBehaviour:
   player: {fileID: 0}
   stoppingDistance: 4
   flySpeed: 8
-  rotationSpeed: 1440
-  minDashSpeed: 75
-  maxDashSpeed: 75
+  rotationSpeed: 1800
+  minDashSpeed: 70
+  maxDashSpeed: 80
   chargeTime: 3.5
   dashDuration: 0.4
   attackCooldown: 2
@@ -316,6 +316,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: dcfe2b7a11b242f4e8f05a4bfa0ffb2a, type: 3}
       propertyPath: m_Layer
       value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: dcfe2b7a11b242f4e8f05a4bfa0ffb2a, type: 3}
+      propertyPath: m_TagString
+      value: Enemy
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
