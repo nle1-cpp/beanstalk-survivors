@@ -914,7 +914,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PlayerMovement
   moveSpeed: 10
   jumpForce: 12
-  airMultiplier: 0.4
+  airMultiplier: 0.8
   playerHeight: 2
   groundLayer:
     serializedVersion: 2
@@ -926,7 +926,11 @@ MonoBehaviour:
   maxAirJumps: 3
   airJumpRefillInterval: 0.35
   groundTimeToMaxSpeed: 0.5
+  groundTimeToHalt: 0.5
   airAcceleration: 14
+  airControlMaxSpeed: 4
+  airborneUnsupportedDecay: 2
+  airborneAlignedAboveCapDecay: 0
   gravity: -30
   terminalVelocity: -40
   groundedStickVelocity: -2
@@ -960,7 +964,7 @@ MonoBehaviour:
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player
   m_SplitScreenIndex: -1
-  m_Camera: {fileID: 0}
+  m_Camera: {fileID: 3169315006124232198}
 --- !u!82 &226269708550488376
 AudioSource:
   m_ObjectHideFlags: 0
@@ -1075,14 +1079,14 @@ MonoBehaviour:
     sounds:
     - {fileID: 8300000, guid: edb2cee4840bc4345bed030154cc4c40, type: 3}
     - {fileID: 8300000, guid: 01715be43f2f85846a81acf5ed1f73b9, type: 3}
-  - name: Player_DoubleJump
+  - name: Player_Hurt_Projectile
     sounds:
     - {fileID: 0}
   - name: Player_Dash
     sounds:
     - {fileID: 8300000, guid: 3151ab67484d2c74e981f28532c67b34, type: 3}
     - {fileID: 8300000, guid: e7b45e2331e5f6d41a00305a6ba0caf3, type: 3}
-  - name: Player_Fall
+  - name: Player_Death
     sounds: []
   - name: Player_Land
     sounds:
@@ -1122,7 +1126,7 @@ MonoBehaviour:
     sounds: []
   - name: Enemy_Attack
     sounds: []
-  - name: Enemy_Hurt
+  - name: Enemy_Shoot
     sounds: []
   - name: Enemy_Death
     sounds: []
@@ -1140,6 +1144,10 @@ MonoBehaviour:
   - name: Cat_Charge
     sounds:
     - {fileID: 8300000, guid: f6fb29b36b915534db33a0ac93269fba, type: 3}
+  - name: Enemy_Hurt_Melee
+    sounds: []
+  - name: BGM_Clear
+    sounds: []
 --- !u!1 &7721738898808918185
 GameObject:
   m_ObjectHideFlags: 0
@@ -1220,7 +1228,6 @@ MonoBehaviour:
   rocketPrefab: {fileID: 7821791083246637708, guid: d824897cdc31010409fbbd86840d577d, type: 3}
   firePoint: {fileID: 4216319327230658407}
   playerRigidbody: {fileID: 851589175345362888}
-  switcher: {fileID: 2849581921951317622}
   recoilForce: 10
   fireCooldown: 1
   currentAmmo: 20
@@ -1399,14 +1406,14 @@ Camera:
   serializedVersion: 2
   m_ClearFlags: 1
   m_BackGroundColor: {r: 0.19215687, g: 0.3019608, b: 0.4745098, a: 0}
-  m_projectionMatrixMode: 1
+  m_projectionMatrixMode: 2
   m_GateFitMode: 2
   m_FOVAxisMode: 0
   m_Iso: 200
   m_ShutterSpeed: 0.005
   m_Aperture: 16
   m_FocusDistance: 10
-  m_FocalLength: 50
+  m_FocalLength: 14.3010435
   m_BladeCount: 5
   m_Curvature: {x: 2, y: 11}
   m_BarrelClipping: 0.25
@@ -1472,7 +1479,7 @@ MonoBehaviour:
   m_RequiresOpaqueTextureOption: 2
   m_CameraType: 0
   m_Cameras: []
-  m_RendererIndex: -1
+  m_RendererIndex: 0
   m_VolumeLayerMask:
     serializedVersion: 2
     m_Bits: 1

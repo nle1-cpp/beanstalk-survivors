@@ -17,9 +17,6 @@ public class WaveManager : MonoBehaviour
     private int _enemiesRemaining;
 
     [Header("Wave Clear Settings")]
-    public Image flashImage;
-    public Color winFlashColor = new Color(0, 1, 0, 0.4f); // Green at 40% alpha
-    public float flashDuration = 1f;
 
     [Header("Flash Settings")]
     public Image flashImage;
