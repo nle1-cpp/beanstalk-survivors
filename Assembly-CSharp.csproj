@@ -71,6 +71,7 @@
     <Compile Include="Assets\Scripts\Player\WeaponSwitcher.cs" />
     <Compile Include="Assets\Scripts\PowerUps\Dash\DashHitboxSensor.cs" />
     <Compile Include="Assets\Scripts\PowerUps\Jar\JarAbility.cs" />
+    <Compile Include="Assets\Scripts\Enemies\CatDamage.cs" />
     <Compile Include="Assets\TutorialInfo\Scripts\Readme.cs" />
     <Compile Include="Assets\Scripts\Enemies\EnemyJumpHandler.cs" />
     <Compile Include="Assets\Scripts\PowerUps\Jar\TemporaryPlatform.cs" />
@@ -95,6 +96,7 @@
     <Compile Include="Assets\Scripts\WaveManager.cs" />
     <Compile Include="Assets\Scripts\Player\CameraOnPlayer.cs" />
     <Compile Include="Assets\Scripts\GameManager.cs" />
+    <Compile Include="Assets\Scripts\Enemies\BossController.cs" />
     <Compile Include="Assets\Scripts\Enemies\EnemyAI.cs" />
     <Compile Include="Assets\Scripts\Enemies\StomperAI.cs" />
     <Compile Include="Assets\Scripts\Player\MeleeHitboxSensor.cs" />

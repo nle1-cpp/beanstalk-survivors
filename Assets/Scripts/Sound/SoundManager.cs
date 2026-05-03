@@ -25,7 +25,13 @@ public enum SoundType
     Enemy_Attack,
     Enemy_Hurt,
     Enemy_Death,
-    Stomper_Cloud
+    Stomper_Cloud,
+
+    // Boss
+    Cat_Ascend,
+    Cat_Start,
+    Cat_Windup,
+    Cat_Charge,
 }
 
 [RequireComponent(typeof(AudioSource))]
