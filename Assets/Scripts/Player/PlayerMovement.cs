@@ -47,6 +47,11 @@ public class PlayerMovement : MonoBehaviour
     public Vector3 Velocity => rb != null ? rb.linearVelocity : Vector3.zero;
     public int AvailableAirJumps => availableAirJumps;
     public int MaxAirJumps => maxAirJumps;
+    void Start()
+    {
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
+    }
 
     private void Awake()
     {

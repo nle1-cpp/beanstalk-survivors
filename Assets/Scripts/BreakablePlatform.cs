@@ -58,7 +58,7 @@ public class BreakablePlatform : MonoBehaviour
     private IEnumerator BreakSequence()
     {
         // Please keep this in
-        SoundManager.PlaySound(SoundType.Stomper_Cloud);
+        SoundManager.PlaySound(SoundType.Stomper_Cloud, 0.3f);
         _isBroken = true;
 
         // Disable cloud (visual)

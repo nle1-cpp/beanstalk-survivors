@@ -136,7 +136,7 @@ NavMeshAgent:
   m_AutoTraverseOffMeshLink: 1
   m_AutoBraking: 1
   m_AutoRepath: 1
-  m_Height: 2
+  m_Height: 1
   m_BaseOffset: 1
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
@@ -166,7 +166,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ShooterAI
   pathUpdateDelay: 0.2
-  stopDistance: 50
+  stopDistance: 33
   projectilePrefab: {fileID: 3697016476965331479, guid: 7c95bffa79c79a64289e2af34da63da9, type: 3}
   firePoint: {fileID: 7106697256837511180}
   fireRate: 3
