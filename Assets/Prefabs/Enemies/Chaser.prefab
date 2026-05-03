@@ -206,5 +206,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0281719d968159244b31eca729e523de, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyJumpHandler
-  jumpHeight: 4
+  jumpHeight: 4.5
   jumpDuration: 1.2

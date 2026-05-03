@@ -16,6 +16,7 @@ GameObject:
   - component: {fileID: 603166680629123328}
   - component: {fileID: 560710513845429506}
   - component: {fileID: 6302411032006795360}
+  - component: {fileID: 8473620160671965728}
   m_Layer: 7
   m_Name: Stompers
   m_TagString: Stomper
@@ -191,3 +192,17 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 112
   m_CollisionDetection: 1
+--- !u!114 &8473620160671965728
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8361169035135575420}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0281719d968159244b31eca729e523de, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::EnemyJumpHandler
+  jumpHeight: 20
+  jumpDuration: 2

@@ -130,11 +130,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BossAI
   player: {fileID: 0}
-  stoppingDistance: 4
+  stoppingDistance: 6
   flySpeed: 8
   rotationSpeed: 1800
-  minDashSpeed: 70
-  maxDashSpeed: 80
+  minDashSpeed: 75
+  maxDashSpeed: 90
   chargeTime: 3.5
   dashDuration: 0.4
   attackCooldown: 2

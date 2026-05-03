@@ -6215,7 +6215,7 @@ MonoBehaviour:
   flashDuration: 2
   bossPrefabs:
   - {fileID: 5018250804619545409, guid: 3f18b4b31fade8c40825e8a2d0374799, type: 3}
-  bossSpawnRound: 1
+  bossSpawnRound: 8
   bossSpawnBottomY: -20
   bossArenaFlightY: 10
   ascensionDuration: 6
