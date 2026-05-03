@@ -1,7 +1,7 @@
 {
   "name": "BeanstalkSurvivors.Runtime",
   "autoReferenced": true,
-  "references": ["Unity.InputSystem"],
+  "references": ["Unity.InputSystem", "Unity.TextMeshPro"],
   "includePlatforms": [],
   "excludePlatforms": []
 }
