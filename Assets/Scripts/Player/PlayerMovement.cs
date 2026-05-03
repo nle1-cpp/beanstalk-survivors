@@ -29,7 +29,11 @@ public class PlayerMovement : MonoBehaviour
 
     [Header("Gravity")]
     public float groundTimeToMaxSpeed = 0.5f;
+    public float groundTimeToHalt = 0.5f;
     public float airAcceleration = 14f;
+    public float airControlMaxSpeed = 4f;
+    public float airborneUnsupportedDecay = 2f;
+    public float airborneAlignedAboveCapDecay = 0f;
     public float gravity = -30f;
     public float terminalVelocity = -40f;
     public float groundedStickVelocity = -2f;
@@ -72,7 +76,11 @@ public class PlayerMovement : MonoBehaviour
         maxAirJumps = Mathf.Max(0, maxAirJumps);
         airJumpRefillInterval = Mathf.Max(0f, airJumpRefillInterval);
         groundTimeToMaxSpeed = Mathf.Max(0.01f, groundTimeToMaxSpeed);
+        groundTimeToHalt = Mathf.Max(0.01f, groundTimeToHalt);
         airAcceleration = Mathf.Max(0f, airAcceleration);
+        airControlMaxSpeed = Mathf.Max(0f, airControlMaxSpeed);
+        airborneUnsupportedDecay = Mathf.Max(0f, airborneUnsupportedDecay);
+        airborneAlignedAboveCapDecay = Mathf.Max(0f, airborneAlignedAboveCapDecay);
         gravity = Mathf.Min(0f, gravity);
         terminalVelocity = Mathf.Min(0f, terminalVelocity);
         groundedStickVelocity = Mathf.Min(0f, groundedStickVelocity);
@@ -250,12 +258,13 @@ public class PlayerMovement : MonoBehaviour
         moveDirection = GetMoveDirection();
         Vector3 horizontalVelocity = new Vector3(rb.linearVelocity.x, 0f, rb.linearVelocity.z);
         float groundSpeedChangePerSecond = moveSpeed / Mathf.Max(0.01f, groundTimeToMaxSpeed);
+        float groundBrakePerSecond = moveSpeed / Mathf.Max(0.01f, groundTimeToHalt);
 
-        if (moveDirection.sqrMagnitude > 0.0001f)
+        if (isGrounded)
         {
-            Vector3 targetVelocity = moveDirection.normalized * moveSpeed;
-            if (isGrounded)
+            if (moveDirection.sqrMagnitude > 0.0001f)
             {
+                Vector3 targetVelocity = moveDirection.normalized * moveSpeed;
                 horizontalVelocity = Vector3.MoveTowards(
                     horizontalVelocity,
                     targetVelocity,
@@ -263,18 +272,60 @@ public class PlayerMovement : MonoBehaviour
             }
             else
             {
-                horizontalVelocity = Vector3.MoveTowards(
-                    horizontalVelocity,
-                    targetVelocity,
-                    airAcceleration * airMultiplier * Time.fixedDeltaTime);
+                horizontalVelocity = Vector3.MoveTowards(horizontalVelocity, Vector3.zero, groundBrakePerSecond * Time.fixedDeltaTime);
             }
         }
-        else if (isGrounded)
+        else
         {
-            horizontalVelocity = Vector3.MoveTowards(horizontalVelocity, Vector3.zero, groundSpeedChangePerSecond * Time.fixedDeltaTime);
+            horizontalVelocity = ApplyAirborneHorizontalMovement(horizontalVelocity, moveDirection);
         }
 
         rb.linearVelocity = new Vector3(horizontalVelocity.x, rb.linearVelocity.y, horizontalVelocity.z);
+    }
+
+    private Vector3 ApplyAirborneHorizontalMovement(Vector3 horizontalVelocity, Vector3 requestedDirection)
+    {
+        float currentSpeed = horizontalVelocity.magnitude;
+        float unsupportedDecayStep = airborneUnsupportedDecay * Time.fixedDeltaTime;
+
+        if (requestedDirection.sqrMagnitude <= 0.0001f)
+        {
+            return Vector3.MoveTowards(horizontalVelocity, Vector3.zero, unsupportedDecayStep);
+        }
+
+        Vector3 inputDirection = requestedDirection.normalized;
+        if (currentSpeed <= 0.0001f)
+        {
+            return Vector3.MoveTowards(Vector3.zero, inputDirection * airControlMaxSpeed, GetAirAccelerationStep());
+        }
+
+        Vector3 currentDirection = horizontalVelocity / currentSpeed;
+        float inputAlignment = Vector3.Dot(currentDirection, inputDirection);
+        if (inputAlignment < -0.01f)
+        {
+            return Vector3.MoveTowards(horizontalVelocity, Vector3.zero, unsupportedDecayStep);
+        }
+
+        if (currentSpeed > airControlMaxSpeed)
+        {
+            if (inputAlignment > 0f)
+            {
+                float decayStep = airborneAlignedAboveCapDecay * Time.fixedDeltaTime;
+                return Vector3.MoveTowards(horizontalVelocity, currentDirection * airControlMaxSpeed, decayStep);
+            }
+
+            return Vector3.MoveTowards(horizontalVelocity, Vector3.zero, unsupportedDecayStep);
+        }
+
+        return Vector3.MoveTowards(
+            horizontalVelocity,
+            inputDirection * airControlMaxSpeed,
+            GetAirAccelerationStep());
+    }
+
+    private float GetAirAccelerationStep()
+    {
+        return airAcceleration * airMultiplier * Time.fixedDeltaTime;
     }
 
     private void ApplyGravity()

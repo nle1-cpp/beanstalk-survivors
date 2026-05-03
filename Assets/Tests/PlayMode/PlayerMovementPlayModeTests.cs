@@ -222,6 +222,163 @@ public class PlayerMovementPlayModeTests
     }
 
     [UnityTest]
+    public IEnumerator AirborneNoInputDecaysHorizontalVelocityWhilePreservingVerticalVelocity()
+    {
+        PlayerMovement movement = CreateTestPlayer();
+        movement.airborneUnsupportedDecay = 2f;
+        yield return null;
+
+        movement.isGrounded = false;
+        movement.GetComponent<Rigidbody>().linearVelocity = new Vector3(3f, -7f, 4f);
+
+        InvokePrivate(movement, "ApplyHorizontalMovement", false);
+
+        Assert.That(new Vector3(movement.Velocity.x, 0f, movement.Velocity.z).magnitude, Is.LessThan(5f));
+        Assert.That(movement.Velocity.y, Is.EqualTo(-7f).Within(0.0001f));
+
+        Object.Destroy(movement.gameObject);
+        yield return null;
+    }
+
+    [UnityTest]
+    public IEnumerator AirborneMoveInputAcceleratesBelowCapWithoutExceedingIt()
+    {
+        PlayerMovement movement = CreateTestPlayer();
+        movement.airControlMaxSpeed = 4f;
+        movement.airAcceleration = 14f;
+        movement.airMultiplier = 1f;
+        yield return null;
+
+        movement.isGrounded = false;
+        movement.GetComponent<Rigidbody>().linearVelocity = new Vector3(0f, 6f, 3.5f);
+        SetPrivateField(movement, "moveInput", new Vector2(0f, 1f));
+
+        InvokePrivate(movement, "ApplyHorizontalMovement", false);
+
+        float horizontalSpeed = new Vector3(movement.Velocity.x, 0f, movement.Velocity.z).magnitude;
+        Assert.That(horizontalSpeed, Is.GreaterThan(3.5f));
+        Assert.That(horizontalSpeed, Is.LessThanOrEqualTo(movement.airControlMaxSpeed));
+        Assert.That(movement.Velocity.y, Is.EqualTo(6f).Within(0.0001f));
+
+        Object.Destroy(movement.gameObject);
+        yield return null;
+    }
+
+    [UnityTest]
+    public IEnumerator AirborneAlignedInputAboveCapDoesNotIncreaseSpeed()
+    {
+        PlayerMovement movement = CreateTestPlayer();
+        movement.airControlMaxSpeed = 4f;
+        movement.airborneAlignedAboveCapDecay = 0f;
+        yield return null;
+
+        movement.isGrounded = false;
+        movement.GetComponent<Rigidbody>().linearVelocity = new Vector3(0f, 0f, 6f);
+        SetPrivateField(movement, "moveInput", new Vector2(0f, 1f));
+
+        InvokePrivate(movement, "ApplyHorizontalMovement", false);
+
+        float horizontalSpeed = new Vector3(movement.Velocity.x, 0f, movement.Velocity.z).magnitude;
+        Assert.That(horizontalSpeed, Is.EqualTo(6f).Within(0.0001f));
+        Assert.That(movement.Velocity.y, Is.EqualTo(0f).Within(0.0001f));
+
+        Object.Destroy(movement.gameObject);
+        yield return null;
+    }
+
+    [UnityTest]
+    public IEnumerator AirborneAlignedInputAboveCapSlowsLessThanNoInputForSameDuration()
+    {
+        PlayerMovement noInputMovement = CreateTestPlayer();
+        noInputMovement.airControlMaxSpeed = 4f;
+        noInputMovement.airborneUnsupportedDecay = 4f;
+        noInputMovement.airborneAlignedAboveCapDecay = 1f;
+        PlayerMovement alignedMovement = CreateTestPlayer();
+        alignedMovement.airControlMaxSpeed = 4f;
+        alignedMovement.airborneUnsupportedDecay = 4f;
+        alignedMovement.airborneAlignedAboveCapDecay = 1f;
+        yield return null;
+
+        noInputMovement.isGrounded = false;
+        alignedMovement.isGrounded = false;
+        noInputMovement.GetComponent<Rigidbody>().linearVelocity = new Vector3(0f, 0f, 6f);
+        alignedMovement.GetComponent<Rigidbody>().linearVelocity = new Vector3(0f, 0f, 6f);
+        SetPrivateField(alignedMovement, "moveInput", new Vector2(0f, 1f));
+
+        InvokePrivate(noInputMovement, "ApplyHorizontalMovement", false);
+        InvokePrivate(alignedMovement, "ApplyHorizontalMovement", false);
+
+        float noInputSpeed = new Vector3(noInputMovement.Velocity.x, 0f, noInputMovement.Velocity.z).magnitude;
+        float alignedSpeed = new Vector3(alignedMovement.Velocity.x, 0f, alignedMovement.Velocity.z).magnitude;
+        Assert.That(alignedSpeed, Is.GreaterThanOrEqualTo(noInputSpeed));
+        Assert.That(alignedSpeed, Is.EqualTo(6f - alignedMovement.airborneAlignedAboveCapDecay * Time.fixedDeltaTime).Within(0.0001f));
+
+        Object.Destroy(noInputMovement.gameObject);
+        Object.Destroy(alignedMovement.gameObject);
+        yield return null;
+    }
+
+    [UnityTest]
+    public IEnumerator GroundedTimeToMaxSpeedAndHaltCanBeTunedIndependently()
+    {
+        PlayerMovement movement = CreateTestPlayer();
+        movement.groundTimeToMaxSpeed = 0.25f;
+        movement.groundTimeToHalt = 1f;
+        yield return null;
+
+        movement.isGrounded = true;
+        movement.GetComponent<Rigidbody>().linearVelocity = Vector3.zero;
+        SetPrivateField(movement, "moveInput", new Vector2(0f, 1f));
+
+        InvokePrivate(movement, "ApplyHorizontalMovement", false);
+        float acceleratedSpeed = new Vector3(movement.Velocity.x, 0f, movement.Velocity.z).magnitude;
+
+        movement.GetComponent<Rigidbody>().linearVelocity = new Vector3(0f, 0f, movement.moveSpeed);
+        SetPrivateField(movement, "moveInput", Vector2.zero);
+
+        InvokePrivate(movement, "ApplyHorizontalMovement", false);
+        float brakedSpeed = new Vector3(movement.Velocity.x, 0f, movement.Velocity.z).magnitude;
+
+        Assert.That(acceleratedSpeed, Is.EqualTo(movement.moveSpeed * Time.fixedDeltaTime / movement.groundTimeToMaxSpeed).Within(0.0001f));
+        Assert.That(brakedSpeed, Is.EqualTo(movement.moveSpeed - movement.moveSpeed * Time.fixedDeltaTime / movement.groundTimeToHalt).Within(0.0001f));
+
+        Object.Destroy(movement.gameObject);
+        yield return null;
+    }
+
+    [UnityTest]
+    public IEnumerator GroundedMovementIgnoresAirborneControlCap()
+    {
+        PlayerMovement cappedMovement = CreateTestPlayer();
+        cappedMovement.airControlMaxSpeed = 0.1f;
+        cappedMovement.groundTimeToMaxSpeed = 0.5f;
+        cappedMovement.groundTimeToHalt = 0.5f;
+        PlayerMovement uncappedMovement = CreateTestPlayer();
+        uncappedMovement.airControlMaxSpeed = 100f;
+        uncappedMovement.groundTimeToMaxSpeed = 0.5f;
+        uncappedMovement.groundTimeToHalt = 0.5f;
+        yield return null;
+
+        cappedMovement.isGrounded = true;
+        uncappedMovement.isGrounded = true;
+        cappedMovement.GetComponent<Rigidbody>().linearVelocity = Vector3.zero;
+        uncappedMovement.GetComponent<Rigidbody>().linearVelocity = Vector3.zero;
+        SetPrivateField(cappedMovement, "moveInput", new Vector2(0f, 1f));
+        SetPrivateField(uncappedMovement, "moveInput", new Vector2(0f, 1f));
+
+        InvokePrivate(cappedMovement, "ApplyHorizontalMovement", false);
+        InvokePrivate(uncappedMovement, "ApplyHorizontalMovement", false);
+
+        float cappedSpeed = new Vector3(cappedMovement.Velocity.x, 0f, cappedMovement.Velocity.z).magnitude;
+        float uncappedSpeed = new Vector3(uncappedMovement.Velocity.x, 0f, uncappedMovement.Velocity.z).magnitude;
+        Assert.That(cappedSpeed, Is.EqualTo(uncappedSpeed).Within(0.0001f));
+
+        Object.Destroy(cappedMovement.gameObject);
+        Object.Destroy(uncappedMovement.gameObject);
+        yield return null;
+    }
+
+    [UnityTest]
     public IEnumerator AirJumpsRefillWhileGroundedNotAirborne()
     {
         PlayerMovement movement = CreateTestPlayer();
