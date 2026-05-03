@@ -25,9 +25,11 @@ public class PlayerMovement : MonoBehaviour
     private float footstepTimer;
     public float footstepDelay = 0.4f;
 
-    // double jump
-    // public int MaxJumps = 2;
-    // private int _jumpCount = 0;
+    void Start()
+    {
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
+    }
 
     private void Awake()
     {
