@@ -30,7 +30,6 @@ public class PlayerMovementPlayModeTests
         movement.moveSpeed = 6f;
         movement.jumpForce = 5f;
         movement.airMultiplier = 1f;
-        movement.groundDrag = 1f;
         movement.playerHeight = 2f;
         movement.groundLayer = ~0;
         movement.orientation = player.transform;
@@ -114,6 +113,115 @@ public class PlayerMovementPlayModeTests
     }
 
     [UnityTest]
+    public IEnumerator GroundedMoveInputAcceleratesHorizontalVelocity()
+    {
+        PlayerMovement movement = CreateTestPlayer();
+        yield return null;
+
+        movement.isGrounded = true;
+        movement.GetComponent<Rigidbody>().linearVelocity = Vector3.zero;
+        SetPrivateField(movement, "moveInput", new Vector2(0f, 1f));
+
+        InvokePrivate(movement, "ApplyHorizontalMovement", false);
+
+        float horizontalSpeed = new Vector3(movement.Velocity.x, 0f, movement.Velocity.z).magnitude;
+        Assert.That(horizontalSpeed, Is.GreaterThan(0f));
+        Assert.That(horizontalSpeed, Is.LessThan(movement.moveSpeed));
+        Assert.That(movement.Velocity.y, Is.EqualTo(0f).Within(0.0001f));
+
+        Object.Destroy(movement.gameObject);
+        yield return null;
+    }
+
+    [UnityTest]
+    public IEnumerator GroundedMoveInputEventuallyReachesMoveSpeed()
+    {
+        PlayerMovement movement = CreateTestPlayer();
+        yield return null;
+
+        movement.isGrounded = true;
+        movement.GetComponent<Rigidbody>().linearVelocity = Vector3.zero;
+        SetPrivateField(movement, "moveInput", new Vector2(0f, 1f));
+
+        int stepsToMaxSpeed = Mathf.CeilToInt(movement.groundTimeToMaxSpeed / Time.fixedDeltaTime);
+        for (int i = 0; i < stepsToMaxSpeed; i++)
+        {
+            InvokePrivate(movement, "ApplyHorizontalMovement", false);
+        }
+
+        float horizontalSpeed = new Vector3(movement.Velocity.x, 0f, movement.Velocity.z).magnitude;
+        Assert.That(horizontalSpeed, Is.EqualTo(movement.moveSpeed).Within(0.0001f));
+        Assert.That(movement.Velocity.y, Is.EqualTo(0f).Within(0.0001f));
+
+        Object.Destroy(movement.gameObject);
+        yield return null;
+    }
+
+    [UnityTest]
+    public IEnumerator GroundedMoveInputPreservesAndBuildsHorizontalMomentum()
+    {
+        PlayerMovement movement = CreateTestPlayer();
+        yield return null;
+
+        movement.isGrounded = true;
+        movement.GetComponent<Rigidbody>().linearVelocity = new Vector3(0f, -5f, 3f);
+        SetPrivateField(movement, "moveInput", new Vector2(0f, 1f));
+
+        InvokePrivate(movement, "ApplyHorizontalMovement", false);
+
+        float horizontalSpeed = new Vector3(movement.Velocity.x, 0f, movement.Velocity.z).magnitude;
+        Assert.That(horizontalSpeed, Is.GreaterThan(3f));
+        Assert.That(horizontalSpeed, Is.LessThanOrEqualTo(movement.moveSpeed));
+        Assert.That(movement.Velocity.y, Is.EqualTo(-5f).Within(0.0001f));
+
+        Object.Destroy(movement.gameObject);
+        yield return null;
+    }
+
+    [UnityTest]
+    public IEnumerator GroundedUpdateDoesNotApplyLinearDamping()
+    {
+        PlayerMovement movement = CreateTestPlayer();
+        movement.GetComponent<Rigidbody>().linearDamping = 0f;
+        movement.transform.position = Vector3.up;
+        movement.gameObject.layer = 2;
+        movement.groundLayer = 1 << 0;
+        GameObject ground = CreateGroundUnderPlayer();
+        yield return null;
+
+        SetPrivateField(movement, "moveInput", new Vector2(0f, 1f));
+        SetPrivateField(movement, "wasGrounded", true);
+
+        InvokePrivate(movement, "Update");
+
+        Assert.That(movement.isGrounded, Is.True);
+        Assert.That(movement.GetComponent<Rigidbody>().linearDamping, Is.EqualTo(0f).Within(0.0001f));
+
+        Object.Destroy(ground);
+        Object.Destroy(movement.gameObject);
+        yield return null;
+    }
+
+    [UnityTest]
+    public IEnumerator GroundedNoInputBrakesHorizontalVelocity()
+    {
+        PlayerMovement movement = CreateTestPlayer();
+        yield return null;
+
+        movement.isGrounded = true;
+        movement.GetComponent<Rigidbody>().linearVelocity = new Vector3(0f, 0f, 5f);
+        SetPrivateField(movement, "moveInput", Vector2.zero);
+
+        InvokePrivate(movement, "ApplyHorizontalMovement", false);
+
+        Assert.That(new Vector3(movement.Velocity.x, 0f, movement.Velocity.z).magnitude, Is.LessThan(5f));
+        Assert.That(movement.Velocity.y, Is.EqualTo(0f).Within(0.0001f));
+
+        Object.Destroy(movement.gameObject);
+        yield return null;
+    }
+
+    [UnityTest]
     public IEnumerator AirJumpsRefillWhileGroundedNotAirborne()
     {
         PlayerMovement movement = CreateTestPlayer();
@@ -146,7 +254,6 @@ public class PlayerMovementPlayModeTests
         movement.moveSpeed = 6f;
         movement.jumpForce = 5f;
         movement.airMultiplier = 1f;
-        movement.groundDrag = 1f;
         movement.playerHeight = 2f;
         movement.groundLayer = ~0;
         movement.orientation = player.transform;
@@ -154,6 +261,16 @@ public class PlayerMovementPlayModeTests
         movement.airJumpRefillInterval = 0f;
 
         return movement;
+    }
+
+    private static GameObject CreateGroundUnderPlayer()
+    {
+        GameObject ground = GameObject.CreatePrimitive(PrimitiveType.Cube);
+        ground.name = "TestGround";
+        ground.transform.position = new Vector3(0f, -0.1f, 0f);
+        ground.transform.localScale = new Vector3(4f, 0.2f, 4f);
+        ground.layer = 0;
+        return ground;
     }
 
     private static object InvokePrivate(object target, string methodName, params object[] parameters)

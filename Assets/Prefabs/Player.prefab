@@ -624,7 +624,7 @@ BoxCollider:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6599848939004183240}
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 13400000, guid: 3fd274577e5fd2c4cb6963f5244d0217, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -699,7 +699,7 @@ Rigidbody:
   m_GameObject: {fileID: 6815408536778390318}
   serializedVersion: 5
   m_Mass: 1
-  m_LinearDamping: 0.01
+  m_LinearDamping: 0
   m_AngularDamping: 0.05
   m_CenterOfMass: {x: 0, y: 0, z: 0}
   m_InertiaTensor: {x: 1, y: 1, z: 1}
@@ -732,7 +732,6 @@ MonoBehaviour:
   moveSpeed: 10
   jumpForce: 12
   airMultiplier: 0.4
-  groundDrag: 5
   playerHeight: 2
   groundLayer:
     serializedVersion: 2
@@ -743,7 +742,7 @@ MonoBehaviour:
   groundCheckOffset: 0.08
   maxAirJumps: 3
   airJumpRefillInterval: 0.35
-  groundAcceleration: 40
+  groundTimeToMaxSpeed: 0.5
   airAcceleration: 14
   gravity: -30
   terminalVelocity: -40

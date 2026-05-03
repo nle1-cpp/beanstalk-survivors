@@ -2794,6 +2794,11 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 8134116384309769963, guid: 1f4fba505fc0dfb43b3c5ea3711bbb24, type: 3}
   m_PrefabInstance: {fileID: 1273729953}
   m_PrefabAsset: {fileID: 0}
+--- !u!20 &220442318 stripped
+Camera:
+  m_CorrespondingSourceObject: {fileID: 3169315006124232198, guid: 1f4fba505fc0dfb43b3c5ea3711bbb24, type: 3}
+  m_PrefabInstance: {fileID: 1273729953}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &276197724
 GameObject:
   m_ObjectHideFlags: 0
@@ -3600,7 +3605,7 @@ Light:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 410087039}
   m_Enabled: 1
-  serializedVersion: 12
+  serializedVersion: 13
   m_Type: 1
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_Intensity: 2
@@ -3652,7 +3657,7 @@ Light:
   m_UseBoundingSphereOverride: 0
   m_UseViewFrustumForShadowCasterCull: 1
   m_ForceVisible: 0
-  m_ShadowRadius: 0
+  m_ShapeRadius: 0
   m_ShadowAngle: 0
   m_LightUnit: 1
   m_LuxAtDistance: 1
@@ -3957,6 +3962,7 @@ Canvas:
   m_OverridePixelPerfect: 0
   m_SortingBucketNormalizedSize: 0
   m_VertexColorAlwaysGammaSpace: 0
+  m_UseReflectionProbes: 0
   m_AdditionalShaderChannelsFlag: 25
   m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 0
@@ -5567,6 +5573,22 @@ PrefabInstance:
     - target: {fileID: 959513345746668488, guid: 1f4fba505fc0dfb43b3c5ea3711bbb24, type: 3}
       propertyPath: m_IsActive
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1129159921875045309, guid: 1f4fba505fc0dfb43b3c5ea3711bbb24, type: 3}
+      propertyPath: m_Camera
+      value: 
+      objectReference: {fileID: 220442318}
+    - target: {fileID: 1129159921875045309, guid: 1f4fba505fc0dfb43b3c5ea3711bbb24, type: 3}
+      propertyPath: m_UIInputModule
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 1129159921875045309, guid: 1f4fba505fc0dfb43b3c5ea3711bbb24, type: 3}
+      propertyPath: m_DefaultControlScheme
+      value: Keyboard&Mouse
+      objectReference: {fileID: 0}
+    - target: {fileID: 1511759640124461319, guid: 1f4fba505fc0dfb43b3c5ea3711bbb24, type: 3}
+      propertyPath: airAcceleration
+      value: 20
       objectReference: {fileID: 0}
     - target: {fileID: 1933011610870380546, guid: 1f4fba505fc0dfb43b3c5ea3711bbb24, type: 3}
       propertyPath: numJars

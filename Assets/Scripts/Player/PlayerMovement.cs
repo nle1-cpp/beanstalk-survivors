@@ -14,7 +14,6 @@ public class PlayerMovement : MonoBehaviour
     public float moveSpeed;
     public float jumpForce;
     public float airMultiplier;
-    public float groundDrag;
     public float playerHeight;
     public LayerMask groundLayer;
     public bool isGrounded;
@@ -29,7 +28,7 @@ public class PlayerMovement : MonoBehaviour
     public float airJumpRefillInterval = 0.35f;
 
     [Header("Gravity")]
-    public float groundAcceleration = 40f;
+    public float groundTimeToMaxSpeed = 0.5f;
     public float airAcceleration = 14f;
     public float gravity = -30f;
     public float terminalVelocity = -40f;
@@ -50,6 +49,7 @@ public class PlayerMovement : MonoBehaviour
         rb = GetComponent<Rigidbody>();
         capsuleCollider = GetComponent<CapsuleCollider>();
         rb.freezeRotation = true;
+        rb.linearDamping = 0f;
         rb.useGravity = false;
 
         if (orientation == null)
@@ -66,13 +66,12 @@ public class PlayerMovement : MonoBehaviour
         moveSpeed = Mathf.Max(0f, moveSpeed);
         jumpForce = Mathf.Max(0f, jumpForce);
         airMultiplier = Mathf.Max(0f, airMultiplier);
-        groundDrag = Mathf.Max(0f, groundDrag);
         playerHeight = Mathf.Max(0f, playerHeight);
         groundCheckRadius = Mathf.Max(0.01f, groundCheckRadius);
         groundCheckOffset = Mathf.Max(0f, groundCheckOffset);
         maxAirJumps = Mathf.Max(0, maxAirJumps);
         airJumpRefillInterval = Mathf.Max(0f, airJumpRefillInterval);
-        groundAcceleration = Mathf.Max(0f, groundAcceleration);
+        groundTimeToMaxSpeed = Mathf.Max(0.01f, groundTimeToMaxSpeed);
         airAcceleration = Mathf.Max(0f, airAcceleration);
         gravity = Mathf.Min(0f, gravity);
         terminalVelocity = Mathf.Min(0f, terminalVelocity);
@@ -120,8 +119,6 @@ public class PlayerMovement : MonoBehaviour
         UpdateLandingSound();
         UpdateAirJumpRefill();
         UpdateFootsteps();
-
-        rb.linearDamping = isGrounded ? groundDrag : 0f;
     }
 
     private void FixedUpdate()
@@ -252,16 +249,29 @@ public class PlayerMovement : MonoBehaviour
 
         moveDirection = GetMoveDirection();
         Vector3 horizontalVelocity = new Vector3(rb.linearVelocity.x, 0f, rb.linearVelocity.z);
+        float groundSpeedChangePerSecond = moveSpeed / Mathf.Max(0.01f, groundTimeToMaxSpeed);
 
         if (moveDirection.sqrMagnitude > 0.0001f)
         {
             Vector3 targetVelocity = moveDirection.normalized * moveSpeed;
-            float acceleration = isGrounded ? groundAcceleration : airAcceleration * airMultiplier;
-            horizontalVelocity = Vector3.MoveTowards(horizontalVelocity, targetVelocity, acceleration * Time.fixedDeltaTime);
+            if (isGrounded)
+            {
+                horizontalVelocity = Vector3.MoveTowards(
+                    horizontalVelocity,
+                    targetVelocity,
+                    groundSpeedChangePerSecond * Time.fixedDeltaTime);
+            }
+            else
+            {
+                horizontalVelocity = Vector3.MoveTowards(
+                    horizontalVelocity,
+                    targetVelocity,
+                    airAcceleration * airMultiplier * Time.fixedDeltaTime);
+            }
         }
         else if (isGrounded)
         {
-            horizontalVelocity = Vector3.MoveTowards(horizontalVelocity, Vector3.zero, groundAcceleration * Time.fixedDeltaTime);
+            horizontalVelocity = Vector3.MoveTowards(horizontalVelocity, Vector3.zero, groundSpeedChangePerSecond * Time.fixedDeltaTime);
         }
 
         rb.linearVelocity = new Vector3(horizontalVelocity.x, rb.linearVelocity.y, horizontalVelocity.z);
@@ -291,6 +301,11 @@ public class PlayerMovement : MonoBehaviour
         Vector3 forward = Vector3.ProjectOnPlane(orientation.forward, Vector3.up).normalized;
         Vector3 right = Vector3.ProjectOnPlane(orientation.right, Vector3.up).normalized;
         return forward * moveInput.y + right * moveInput.x;
+    }
+
+    private bool HasMoveInput()
+    {
+        return moveInput.sqrMagnitude > 0.0001f;
     }
 
     public void ApplyDashForce(Vector3 direction, float force)
