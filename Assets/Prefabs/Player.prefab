@@ -913,25 +913,16 @@ MonoBehaviour:
   moveSpeed: 10
   jumpForce: 12
   airMultiplier: 0.8
+  groundDrag: 0
   playerHeight: 2
   groundLayer:
     serializedVersion: 2
     m_Bits: 64
   isGrounded: 0
   orientation: {fileID: 6154599537794840629}
-  groundCheckRadius: 0.28
-  groundCheckOffset: 0.08
-  maxAirJumps: 3
+  maxJumps: 3
   airJumpRefillInterval: 0.35
-  groundTimeToMaxSpeed: 0.5
-  groundTimeToHalt: 0.5
-  airAcceleration: 14
-  airControlMaxSpeed: 4
-  airborneUnsupportedDecay: 2
-  airborneAlignedAboveCapDecay: 0
-  gravity: -30
-  terminalVelocity: -40
-  groundedStickVelocity: -2
+  airJumpImpulse: 5
   footstepDelay: 0.4
 --- !u!114 &1129159921875045309
 MonoBehaviour:

@@ -39,7 +39,7 @@ public class JumpBudgetHud : MonoBehaviour
     {
         if (playerMovement == null)
         {
-            playerMovement = Object.FindFirstObjectByType<PlayerMovement>();
+            playerMovement = Object.FindAnyObjectByType<PlayerMovement>();
         }
     }
 
@@ -121,7 +121,6 @@ public class JumpBudgetHud : MonoBehaviour
         radialFillImage.fillAmount = playerMovement.AirJumpRefreshProgress01;
         countText.text = playerMovement.AvailableAirJumps.ToString();
     }
-
     private static Sprite GetGeneratedCircleSprite()
     {
         if (generatedCircleSprite != null)

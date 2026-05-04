@@ -120,7 +120,7 @@ MonoBehaviour:
   stopDistance: 33
   projectilePrefab: {fileID: 3697016476965331479, guid: 7c95bffa79c79a64289e2af34da63da9, type: 3}
   firePoint: {fileID: 7106697256837511180}
-  fireRate: 3
+  fireRate: 2
 --- !u!54 &-5854519983139474561
 Rigidbody:
   m_ObjectHideFlags: 0

@@ -32,10 +32,20 @@ public class BossController : MonoBehaviour
         rb.collisionDetectionMode = CollisionDetectionMode.Continuous;
 
         if (player == null)
-            player = GameObject.FindGameObjectWithTag("Player").transform;
+        {
+            GameObject foundPlayer = GameObject.Find("PlayerObject");
+            if (foundPlayer != null)
+            {
+                player = foundPlayer.transform;
+            }
+            else
+            {
+                Debug.LogError("BossController: Could not find a GameObject named 'PlayerObject' in the scene!");
+            }
+        }
     }
 
-    void FixedUpdate()
+        void FixedUpdate()
     {
         // Perpetual Rotation
         Quaternion deltaRotation = Quaternion.Euler(new Vector3(0, rotationSpeed * Time.fixedDeltaTime, 0));

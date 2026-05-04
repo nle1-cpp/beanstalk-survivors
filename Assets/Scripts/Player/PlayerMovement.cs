@@ -4,229 +4,117 @@ using UnityEngine.InputSystem;
 public class PlayerMovement : MonoBehaviour
 {
     private Rigidbody rb;
-    private CapsuleCollider capsuleCollider;
+    private InputAction moveAction;
+    private InputAction jumpAction;
     private Vector3 moveDirection;
-    private Vector2 moveInput;
-    private bool jumpRequested;
-    private float airJumpRegenTimer;
-    private int availableAirJumps;
+    private float horizontalInput;
+    private float verticalInput;
 
+    [Header("Movement Settings")]
     public float moveSpeed;
     public float jumpForce;
     public float airMultiplier;
+    public float groundDrag;
     public float playerHeight;
     public LayerMask groundLayer;
     public bool isGrounded;
     public Transform orientation;
 
-    [Header("Ground Check")]
-    public float groundCheckRadius = 0.28f;
-    public float groundCheckOffset = 0.08f;
+    [Header("Jump Budget & Impulse")]
+    public int maxJumps = 3;
+    private int currentJumps;
+    public float airJumpRefillInterval = 2.0f;
+    private float refillTimer;
+    public float airJumpImpulse = 5f; // Extra directional "kick" for air jumps
 
-    [Header("Air Jump")]
-    public int maxAirJumps = 3;
-    public float airJumpRefillInterval = 0.35f;
+    // HUD Implementation
+    public int AvailableAirJumps => currentJumps;
+    public float AirJumpRefreshProgress01 => (currentJumps < maxJumps) ? (refillTimer / airJumpRefillInterval) : 1f;
 
-    [Header("Gravity")]
-    public float groundTimeToMaxSpeed = 0.5f;
-    public float groundTimeToHalt = 0.5f;
-    public float airAcceleration = 14f;
-    public float airControlMaxSpeed = 4f;
-    public float airborneUnsupportedDecay = 2f;
-    public float airborneAlignedAboveCapDecay = 0f;
-    public float gravity = -30f;
-    public float terminalVelocity = -40f;
-    public float groundedStickVelocity = -2f;
-
-    [Header("Sounds")]
-    public float footstepDelay = 0.4f;
-
+    [Header("Effects")]
     private bool wasGrounded;
     private float footstepTimer;
-
-    public Vector3 Velocity => rb != null ? rb.linearVelocity : Vector3.zero;
-    public int AvailableAirJumps => availableAirJumps;
-    public int MaxAirJumps => maxAirJumps;
-    public bool IsAirJumpBudgetFull => availableAirJumps >= maxAirJumps;
-    public float AirJumpRefreshProgress01
-    {
-        get
-        {
-            if (IsAirJumpBudgetFull)
-            {
-                return 1f;
-            }
-
-            if (!IsAirJumpRefillActive())
-            {
-                return 0f;
-            }
-
-            if (airJumpRefillInterval <= Mathf.Epsilon)
-            {
-                return 1f;
-            }
-
-            return Mathf.Clamp01(airJumpRegenTimer / airJumpRefillInterval);
-        }
-    }
+    public float footstepDelay = 0.4f;
 
     void Start()
     {
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
+        currentJumps = maxJumps;
     }
 
     private void Awake()
     {
         rb = GetComponent<Rigidbody>();
-        capsuleCollider = GetComponent<CapsuleCollider>();
         rb.freezeRotation = true;
-        rb.linearDamping = 0f;
-        rb.useGravity = false;
 
-        if (orientation == null)
-        {
-            orientation = transform;
-        }
-
-        maxAirJumps = Mathf.Max(0, maxAirJumps);
-        availableAirJumps = maxAirJumps;
+        moveAction = new InputAction("Move", InputActionType.Value);
+        moveAction.AddCompositeBinding("3DVector")
+            .With("Up", "<Keyboard>/w")
+            .With("Down", "<Keyboard>/s")
+            .With("Left", "<Keyboard>/a")
+            .With("Right", "<Keyboard>/d");
+        jumpAction = new InputAction("Jump", InputActionType.Value);
+        jumpAction.AddBinding("<Keyboard>/space");
     }
 
-    private void OnValidate()
-    {
-        moveSpeed = Mathf.Max(0f, moveSpeed);
-        jumpForce = Mathf.Max(0f, jumpForce);
-        airMultiplier = Mathf.Max(0f, airMultiplier);
-        playerHeight = Mathf.Max(0f, playerHeight);
-        groundCheckRadius = Mathf.Max(0.01f, groundCheckRadius);
-        groundCheckOffset = Mathf.Max(0f, groundCheckOffset);
-        maxAirJumps = Mathf.Max(0, maxAirJumps);
-        airJumpRefillInterval = Mathf.Max(0f, airJumpRefillInterval);
-        groundTimeToMaxSpeed = Mathf.Max(0.01f, groundTimeToMaxSpeed);
-        groundTimeToHalt = Mathf.Max(0.01f, groundTimeToHalt);
-        airAcceleration = Mathf.Max(0f, airAcceleration);
-        airControlMaxSpeed = Mathf.Max(0f, airControlMaxSpeed);
-        airborneUnsupportedDecay = Mathf.Max(0f, airborneUnsupportedDecay);
-        airborneAlignedAboveCapDecay = Mathf.Max(0f, airborneAlignedAboveCapDecay);
-        gravity = Mathf.Min(0f, gravity);
-        terminalVelocity = Mathf.Min(0f, terminalVelocity);
-        groundedStickVelocity = Mathf.Min(0f, groundedStickVelocity);
-        footstepDelay = Mathf.Max(0f, footstepDelay);
-    }
-
-    public void OnMove(InputValue value)
-    {
-        moveInput = value.Get<Vector2>();
-    }
-
-    public void OnJump(InputValue value)
-    {
-        if (value.isPressed)
-        {
-            jumpRequested = true;
-        }
-    }
-
-    public void ResetForPlaytest(Vector3 position)
-    {
-        transform.position = position;
-
-        if (rb != null)
-        {
-            rb.position = position;
-            rb.linearVelocity = Vector3.zero;
-            rb.angularVelocity = Vector3.zero;
-        }
-
-        moveInput = Vector2.zero;
-        moveDirection = Vector3.zero;
-        jumpRequested = false;
-        airJumpRegenTimer = 0f;
-        availableAirJumps = maxAirJumps;
-        isGrounded = false;
-        wasGrounded = false;
-        footstepTimer = 0f;
-    }
+    private void OnEnable() { moveAction.Enable(); jumpAction.Enable(); }
+    private void OnDisable() { moveAction.Disable(); jumpAction.Disable(); }
 
     private void Update()
     {
-        UpdateGroundedState();
-        UpdateLandingSound();
-        UpdateAirJumpRefill();
-        UpdateFootsteps();
+        isGrounded = Physics.Raycast(transform.position, Vector3.down, playerHeight * 0.5f + 0.3f, groundLayer);
+
+        HandleRefillLogic();
+        HandleJumpInput();
+        HandleVelocityAndSounds();
+
+        rb.linearDamping = isGrounded ? groundDrag : 0;
     }
 
-    private void FixedUpdate()
+    private void HandleRefillLogic()
     {
-        bool skipHorizontalSteering = false;
-
-        if (jumpRequested)
-        {
-            skipHorizontalSteering = TryPerformJump();
-            jumpRequested = false;
-        }
-
-        ApplyHorizontalMovement(skipHorizontalSteering);
-        ApplyGravity();
-    }
-
-    private void UpdateGroundedState()
-    {
-        Vector3 groundCheckOrigin = GetGroundCheckOrigin();
-        isGrounded = Physics.CheckSphere(groundCheckOrigin, groundCheckRadius, groundLayer, QueryTriggerInteraction.Ignore);
-    }
-
-    private Vector3 GetGroundCheckOrigin()
-    {
-        if (capsuleCollider != null)
-        {
-            Bounds bounds = capsuleCollider.bounds;
-            return new Vector3(bounds.center.x, bounds.min.y + groundCheckOffset, bounds.center.z);
-        }
-
-        float halfHeight = Mathf.Max(playerHeight * 0.5f, 0.5f);
-        return transform.position + Vector3.down * (halfHeight - groundCheckOffset);
-    }
-
-    private void UpdateLandingSound()
-    {
-        if (!wasGrounded && isGrounded)
-        {
-            SoundManager.PlaySound(SoundType.Player_Land);
-        }
-
+        if (!wasGrounded && isGrounded) SoundManager.PlaySound(SoundType.Player_Land);
         wasGrounded = isGrounded;
+
+        if (isGrounded && currentJumps < maxJumps)
+        {
+            refillTimer += Time.deltaTime;
+            if (refillTimer >= airJumpRefillInterval)
+            {
+                currentJumps++;
+                refillTimer = 0f;
+            }
+        }
     }
 
-    private void UpdateAirJumpRefill()
+    private void HandleJumpInput()
     {
-        if (!IsAirJumpRefillActive())
+        if (jumpAction.triggered && currentJumps > 0)
         {
-            airJumpRegenTimer = 0f;
-            return;
+            Vector3 input = moveAction.ReadValue<Vector3>();
+            Vector3 jumpDir = orientation.forward * input.y + orientation.right * input.x;
+
+            currentJumps--;
+            Jump(jumpDir.normalized);
+        }
+    }
+
+    private void HandleVelocityAndSounds()
+    {
+        horizontalInput = moveAction.ReadValue<Vector3>().x;
+        verticalInput = moveAction.ReadValue<Vector3>().y;
+
+        Vector3 flatVel = new Vector3(rb.linearVelocity.x, 0, rb.linearVelocity.z);
+
+        // Horizontal speed limit
+        if (flatVel.magnitude > moveSpeed)
+        {
+            Vector3 limitedVel = flatVel.normalized * moveSpeed;
+            rb.linearVelocity = new Vector3(limitedVel.x, rb.linearVelocity.y, limitedVel.z);
         }
 
-        airJumpRegenTimer += Time.deltaTime;
-        if (airJumpRegenTimer < airJumpRefillInterval)
-        {
-            return;
-        }
-
-        airJumpRegenTimer = 0f;
-        availableAirJumps++;
-    }
-
-    private bool IsAirJumpRefillActive()
-    {
-        return isGrounded && !IsAirJumpBudgetFull;
-    }
-
-    private void UpdateFootsteps()
-    {
-        Vector3 horizontalVelocity = new Vector3(rb.linearVelocity.x, 0f, rb.linearVelocity.z);
-        if (isGrounded && horizontalVelocity.magnitude > 0.1f)
+        if (isGrounded && flatVel.magnitude > 0.1f)
         {
             footstepTimer -= Time.deltaTime;
             if (footstepTimer <= 0f)
@@ -235,165 +123,47 @@ public class PlayerMovement : MonoBehaviour
                 footstepTimer = footstepDelay;
             }
         }
-        else
-        {
-            footstepTimer = 0f;
-        }
     }
 
-    private bool TryPerformJump()
+    private void FixedUpdate()
     {
-        if (isGrounded)
-        {
-            PerformJump(false);
-            return false;
-        }
-
-        if (availableAirJumps <= 0)
-        {
-            return false;
-        }
-
-        availableAirJumps--;
-        PerformJump(true);
-        return true;
+        moveDirection = orientation.forward * verticalInput + orientation.right * horizontalInput;
+        float multiplier = isGrounded ? 10f : 10f * airMultiplier;
+        rb.AddForce(moveDirection.normalized * moveSpeed * multiplier, ForceMode.Force);
     }
 
-    private void PerformJump(bool isAirJump)
+    private void Jump(Vector3 direction)
     {
-        Vector3 horizontalVelocity = new Vector3(rb.linearVelocity.x, 0f, rb.linearVelocity.z);
-        Vector3 jumpDirection = GetMoveDirection();
-
-        if (isAirJump)
+        // AIR JUMP LOGIC
+        if (!isGrounded)
         {
-            if (jumpDirection.sqrMagnitude > 0.0001f)
+            // Reset Y to zero out falling momentum
+            rb.linearVelocity = new Vector3(rb.linearVelocity.x, 0f, rb.linearVelocity.z);
+
+            if (direction.magnitude > 0.1f)
             {
-                float horizontalSpeed = horizontalVelocity.magnitude;
-                horizontalVelocity = jumpDirection.normalized * horizontalSpeed;
+                // Instantaneously change momentum to face input
+                rb.linearVelocity = direction * moveSpeed;
+                // APPLY EXTRA FORCE Burst (The "Kick")
+                rb.AddForce(direction * airJumpImpulse, ForceMode.Impulse);
             }
             else
             {
-                horizontalVelocity = Vector3.zero;
+                // Neutral air jump: stop horizontal momentum
+                rb.linearVelocity = Vector3.zero;
             }
         }
+        // GROUND JUMP LOGIC
+        else
+        {
+            rb.linearVelocity = new Vector3(rb.linearVelocity.x, 0f, rb.linearVelocity.z);
+        }
 
-        rb.linearVelocity = new Vector3(horizontalVelocity.x, 0f, horizontalVelocity.z);
-        rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
+        // Apply Vertical Jump Force
+        rb.AddForce(transform.up * jumpForce, ForceMode.Impulse);
         SoundManager.PlaySound(SoundType.Player_Jump);
     }
-
-    private void ApplyHorizontalMovement(bool skipSteeringThisFrame)
-    {
-        if (skipSteeringThisFrame)
-        {
-            return;
-        }
-
-        moveDirection = GetMoveDirection();
-        Vector3 horizontalVelocity = new Vector3(rb.linearVelocity.x, 0f, rb.linearVelocity.z);
-        float groundSpeedChangePerSecond = moveSpeed / Mathf.Max(0.01f, groundTimeToMaxSpeed);
-        float groundBrakePerSecond = moveSpeed / Mathf.Max(0.01f, groundTimeToHalt);
-
-        if (isGrounded)
-        {
-            if (moveDirection.sqrMagnitude > 0.0001f)
-            {
-                Vector3 targetVelocity = moveDirection.normalized * moveSpeed;
-                horizontalVelocity = Vector3.MoveTowards(
-                    horizontalVelocity,
-                    targetVelocity,
-                    groundSpeedChangePerSecond * Time.fixedDeltaTime);
-            }
-            else
-            {
-                horizontalVelocity = Vector3.MoveTowards(horizontalVelocity, Vector3.zero, groundBrakePerSecond * Time.fixedDeltaTime);
-            }
-        }
-        else
-        {
-            horizontalVelocity = ApplyAirborneHorizontalMovement(horizontalVelocity, moveDirection);
-        }
-
-        rb.linearVelocity = new Vector3(horizontalVelocity.x, rb.linearVelocity.y, horizontalVelocity.z);
-    }
-
-    private Vector3 ApplyAirborneHorizontalMovement(Vector3 horizontalVelocity, Vector3 requestedDirection)
-    {
-        float currentSpeed = horizontalVelocity.magnitude;
-        float unsupportedDecayStep = airborneUnsupportedDecay * Time.fixedDeltaTime;
-
-        if (requestedDirection.sqrMagnitude <= 0.0001f)
-        {
-            return Vector3.MoveTowards(horizontalVelocity, Vector3.zero, unsupportedDecayStep);
-        }
-
-        Vector3 inputDirection = requestedDirection.normalized;
-        if (currentSpeed <= 0.0001f)
-        {
-            return Vector3.MoveTowards(Vector3.zero, inputDirection * airControlMaxSpeed, GetAirAccelerationStep());
-        }
-
-        Vector3 currentDirection = horizontalVelocity / currentSpeed;
-        float inputAlignment = Vector3.Dot(currentDirection, inputDirection);
-        if (inputAlignment < -0.01f)
-        {
-            return Vector3.MoveTowards(horizontalVelocity, Vector3.zero, unsupportedDecayStep);
-        }
-
-        if (currentSpeed > airControlMaxSpeed)
-        {
-            if (inputAlignment > 0f)
-            {
-                float decayStep = airborneAlignedAboveCapDecay * Time.fixedDeltaTime;
-                return Vector3.MoveTowards(horizontalVelocity, currentDirection * airControlMaxSpeed, decayStep);
-            }
-
-            return Vector3.MoveTowards(horizontalVelocity, Vector3.zero, unsupportedDecayStep);
-        }
-
-        return Vector3.MoveTowards(
-            horizontalVelocity,
-            inputDirection * airControlMaxSpeed,
-            GetAirAccelerationStep());
-    }
-
-    private float GetAirAccelerationStep()
-    {
-        return airAcceleration * airMultiplier * Time.fixedDeltaTime;
-    }
-
-    private void ApplyGravity()
-    {
-        if (isGrounded && rb.linearVelocity.y <= 0f)
-        {
-            rb.linearVelocity = new Vector3(rb.linearVelocity.x, groundedStickVelocity, rb.linearVelocity.z);
-            return;
-        }
-
-        Vector3 velocity = rb.linearVelocity;
-        velocity.y += gravity * Time.fixedDeltaTime;
-        velocity.y = Mathf.Max(velocity.y, terminalVelocity);
-        rb.linearVelocity = velocity;
-    }
-
-    private Vector3 GetMoveDirection()
-    {
-        if (orientation == null)
-        {
-            return Vector3.zero;
-        }
-
-        Vector3 forward = Vector3.ProjectOnPlane(orientation.forward, Vector3.up).normalized;
-        Vector3 right = Vector3.ProjectOnPlane(orientation.right, Vector3.up).normalized;
-        return forward * moveInput.y + right * moveInput.x;
-    }
-
-    private bool HasMoveInput()
-    {
-        return moveInput.sqrMagnitude > 0.0001f;
-    }
-
-    public void ApplyDashForce(Vector3 direction, float force)
+public void ApplyDashForce(Vector3 direction, float force)
     {
         // PLAY DASH SOUND
         SoundManager.PlaySound(SoundType.Player_Dash);   

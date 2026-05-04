@@ -6,7 +6,6 @@ public class JarAbility : MonoBehaviour
 {
     [Header("References")]
     [SerializeField] private GameObject jarPrefab;
-    [SerializeField] private GameObject jarInHand;
     [SerializeField] private Transform firePoint;
 
     [Header("Settings")]
