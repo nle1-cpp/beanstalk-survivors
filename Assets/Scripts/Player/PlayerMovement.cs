@@ -47,6 +47,30 @@ public class PlayerMovement : MonoBehaviour
     public Vector3 Velocity => rb != null ? rb.linearVelocity : Vector3.zero;
     public int AvailableAirJumps => availableAirJumps;
     public int MaxAirJumps => maxAirJumps;
+    public bool IsAirJumpBudgetFull => availableAirJumps >= maxAirJumps;
+    public float AirJumpRefreshProgress01
+    {
+        get
+        {
+            if (IsAirJumpBudgetFull)
+            {
+                return 1f;
+            }
+
+            if (!IsAirJumpRefillActive())
+            {
+                return 0f;
+            }
+
+            if (airJumpRefillInterval <= Mathf.Epsilon)
+            {
+                return 1f;
+            }
+
+            return Mathf.Clamp01(airJumpRegenTimer / airJumpRefillInterval);
+        }
+    }
+
     void Start()
     {
         Cursor.lockState = CursorLockMode.Locked;
@@ -178,7 +202,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void UpdateAirJumpRefill()
     {
-        if (!isGrounded || availableAirJumps >= maxAirJumps)
+        if (!IsAirJumpRefillActive())
         {
             airJumpRegenTimer = 0f;
             return;
@@ -192,6 +216,11 @@ public class PlayerMovement : MonoBehaviour
 
         airJumpRegenTimer = 0f;
         availableAirJumps++;
+    }
+
+    private bool IsAirJumpRefillActive()
+    {
+        return isGrounded && !IsAirJumpBudgetFull;
     }
 
     private void UpdateFootsteps()
