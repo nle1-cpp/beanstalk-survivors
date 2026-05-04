@@ -1,15 +1,8 @@
 fileFormatVersion: 2
-<<<<<<<< HEAD:Assets/Animation/Big Foot.controller.meta
 guid: e870f39f9c8185d47b4016800be1934a
 NativeFormatImporter:
   externalObjects: {}
   mainObjectFileID: 9100000
-========
-guid: 800ed4c4c9bf4284f831c12b66ff5a99
-NativeFormatImporter:
-  externalObjects: {}
-  mainObjectFileID: 2100000
->>>>>>>> origin:Assets/Materials/Dash.mat.meta
   userData: 
   assetBundleName: 
   assetBundleVariant: 

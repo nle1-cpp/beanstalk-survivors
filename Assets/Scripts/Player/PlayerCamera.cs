@@ -34,15 +34,19 @@ public class PlayerCamera : MonoBehaviour
 
     private void Update()
     {
-        float mouseX = mouseAction.ReadValue<Vector2>().x * Time.deltaTime * xSensitivity;
-        float mouseY = mouseAction.ReadValue<Vector2>().y * Time.deltaTime * ySensitivity;
+        Vector2 mouseDelta = mouseAction.ReadValue<Vector2>();
+        float mouseX = mouseDelta.x * xSensitivity;
+        float mouseY = mouseDelta.y * ySensitivity;
 
         yRotation += mouseX;
         xRotation -= mouseY;
         xRotation = Mathf.Clamp(xRotation, -90f, 90f);
 
         transform.rotation = Quaternion.Euler(xRotation, yRotation, 0);
-        playerOrientation.rotation = Quaternion.Euler(0, yRotation, 0);
+        if (playerOrientation != null)
+        {
+            playerOrientation.rotation = Quaternion.Euler(0, yRotation, 0);
+        }
     }
 
     private void OnApplicationPause(bool pause)

@@ -20,6 +20,10 @@ public class EnemyHealth : MonoBehaviour, IDamageable
         if (_isDead) return;
 
         _isDead = true;
+
+        // PLAY DEATH SOUND
+        SoundManager.PlaySound(SoundType.Enemy_Death);
+
         // ?.Invoke -> Notify the WaveManager
         OnDeath?.Invoke(this);
         Destroy(gameObject);

@@ -52,13 +52,23 @@ public class MeleeWeapon : MonoBehaviour
         if (damageable != null)
         {
             damageable.TakeDamage(damageAmount);
+            // PLAY ENEMY HURT SOUND
+            SoundManager.PlaySound(SoundType.Enemy_Hurt_Melee);
             hitbox.SetActive(false);
         }
     }
     public void ResetWeapon()
     {
-        isAttacking = false;
-        StopAllCoroutines();
+        isAttacking = false; // Reset bool guard
+        StopAllCoroutines(); // Kill any active attack timing
+
+        if (weaponAnimator != null)
+        {
+            weaponAnimator.Play("Idle"); // Force animator back to start
+        }
+
+        // Reset physical position if it gets stuck
+        transform.localRotation = Quaternion.identity;
     }
 
     private void OnDisable()

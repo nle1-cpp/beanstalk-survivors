@@ -5,9 +5,9 @@ public enum SoundType
 {
     // Player
     Player_Jump,
-    Player_DoubleJump,
+    Player_Hurt_Projectile,
     Player_Dash,
-    Player_Fall,
+    Player_Death,
     Player_Land,
     Player_Footstep,
     Player_Hurt,
@@ -23,9 +23,19 @@ public enum SoundType
     // Enemy
     Enemy_Spawn,
     Enemy_Attack,
-    Enemy_Hurt,
+    Enemy_Shoot,
     Enemy_Death,
-    Stomper_Cloud
+    Stomper_Cloud,
+
+    // Boss
+    Cat_Ascend,
+    Cat_Start,
+    Cat_Windup,
+    Cat_Charge,
+    Enemy_Hurt_Melee,
+
+    // BGM
+    BGM_Clear
 }
 
 [RequireComponent(typeof(AudioSource))]

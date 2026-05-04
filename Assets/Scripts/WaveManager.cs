@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic; // List
 using UnityEngine;
+using UnityEngine.Rendering;
 using UnityEngine.UI; // Image component
 
 public class WaveManager : MonoBehaviour
@@ -16,9 +17,23 @@ public class WaveManager : MonoBehaviour
     private int _enemiesRemaining;
 
     [Header("Wave Clear Settings")]
+
+    [Header("Flash Settings")]
     public Image flashImage;
-    public Color winFlashColor = new Color(0, 1, 0, 0.4f); // Green at 40% alpha
     public float flashDuration = 1f;
+
+
+    [Header("Boss Intro Settings")]
+    public GameObject[] bossPrefabs;
+    public int bossSpawnRound = 5;
+    public float bossSpawnBottomY = -20f; // Starting point (below arena)
+    public float bossArenaFlightY = 15f;  // Final hovering height
+    public float ascensionDuration = 8f;
+
+    [Header("Flash Color")]
+    public Color winFlashColor = new Color(0, 1, 0, 0.4f); // Green at 40% alpha
+    public Color bossFlashColor = new Color(1, 1, 1, 0.4f); // White at 40% alpha
+
 
     void Start()
     {
@@ -36,6 +51,9 @@ public class WaveManager : MonoBehaviour
 
     IEnumerator WaveClearRoutine()
     {
+        // PLAY WAVE CLEAR SOUND
+        SoundManager.PlaySound(SoundType.BGM_Clear);
+
         // Flash Green
         if (flashImage != null)
         {
@@ -69,7 +87,12 @@ public class WaveManager : MonoBehaviour
     {
         Debug.Log("Starting Wave " + (_currentWaveIndex + 1));
         if (_currentWaveIndex < waves.Count)
-        {
+            {
+                if (_currentWaveIndex == (bossSpawnRound-1))
+            {
+                StartCoroutine(BossAscensionIntro());
+
+            }
             StartCoroutine(SpawnRoutine(waves[_currentWaveIndex]));
         }
     }
@@ -82,8 +105,19 @@ public class WaveManager : MonoBehaviour
         for (int i = 0; i < data.totalToSpawn; i++)
         {
             // Pick random enemy + random spawn point
-            GameObject prefab = data.enemyPrefabs[UnityEngine.Random.Range(0, data.enemyPrefabs.Length)];
-            Transform spot = enemySpawnPoints[UnityEngine.Random.Range(0, enemySpawnPoints.Length)];
+            int rand = UnityEngine.Random.Range(0, data.enemyPrefabs.Length);
+            GameObject prefab = data.enemyPrefabs[rand];
+
+            Transform spot;
+            // Stompers should not be able to spawn on cloud platforms (unreactable)
+            if (rand == 3) // If it is a stomper ->
+            {
+                spot = enemySpawnPoints[UnityEngine.Random.Range(0, 9)]; // Leaf spawns (omit cloud spawns)
+            }
+            else // All other enemies
+            {
+                spot = enemySpawnPoints[UnityEngine.Random.Range(0, enemySpawnPoints.Length)]; // All spawns
+            }
 
             Instantiate(prefab, spot.position, spot.rotation);
 
@@ -94,6 +128,51 @@ public class WaveManager : MonoBehaviour
 
             yield return new WaitForSeconds(data.timeBetweenSpawns);
         }
+    }
+
+    IEnumerator BossAscensionIntro()
+    {
+        // Spawn Position (Below the center of the arena)
+        Vector3 spawnPos = new Vector3(0, bossSpawnBottomY, 0);
+        GameObject boss = Instantiate(bossPrefabs[0], spawnPos, Quaternion.identity);
+
+        // Grab boss controller (ensure canAct is false initially)
+        BossController controller = boss.GetComponent<BossController>();
+
+        // Ascension
+        float elapsed = 0;
+        Vector3 endPos = new Vector3(0, bossArenaFlightY, 0);
+
+        while (elapsed < ascensionDuration)
+        {
+            boss.transform.position = Vector3.Lerp(spawnPos, endPos, elapsed / ascensionDuration);
+            elapsed += Time.deltaTime;
+            yield return null;
+        }
+        boss.transform.position = endPos;
+
+        yield return new WaitForSeconds(5);
+        SoundManager.PlaySound(SoundType.Cat_Start, 0.4f);
+
+        // Boss canAct = true
+        controller.BeginBossFight();
+        _enemiesRemaining++;
+
+        if (flashImage != null)
+        {
+            flashImage.color = bossFlashColor;
+
+            // Fade out white flash
+            elapsed = 0f;
+            while (elapsed < flashDuration)
+            {
+                elapsed += Time.deltaTime;
+                float alpha = Mathf.Lerp(bossFlashColor.a, 0, elapsed / flashDuration);
+                flashImage.color = new Color(bossFlashColor.r, bossFlashColor.g, bossFlashColor.b, alpha);
+                yield return null;
+            }
+        }
+
     }
 
     private void SpawnMidRoundPowerup()

@@ -18,4 +18,4 @@ MonoBehaviour:
   - {fileID: 2996561969472582348, guid: a872329b1fee01c4b84c78fdac312bc4, type: 3}
   - {fileID: 8361169035135575420, guid: 51f4a0bc1d7bd46468e08acbfd59798e, type: 3}
   totalToSpawn: 40
-  timeBetweenSpawns: 0.5
+  timeBetweenSpawns: 1.5

@@ -1,9 +1,5 @@
 fileFormatVersion: 2
-<<<<<<<< HEAD:Assets/Materials/Cloud Bounce.physicMaterial.meta
 guid: a3a10fb7c2e90d545b13e5709454dd39
-========
-guid: 70687302236549543bed29fe1371ddfc
->>>>>>>> origin:Assets/Scenes/ArenaScene/NavMesh-Platforms.asset.meta
 NativeFormatImporter:
   externalObjects: {}
   mainObjectFileID: 13400000

@@ -15,7 +15,8 @@ public class HeartPickup : MonoBehaviour
             {
                 playerHealth.Heal(healAmount);
             }
+            Destroy(gameObject);
         }
-        Destroy(gameObject);
+        
     }
 }
