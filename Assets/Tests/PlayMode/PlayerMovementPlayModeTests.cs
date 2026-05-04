@@ -2,6 +2,7 @@ using System.Collections;
 using System.Reflection;
 using System.Text.RegularExpressions;
 using NUnit.Framework;
+using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.TestTools;
@@ -17,6 +18,12 @@ public class PlayerMovementPlayModeTests
 
         Assert.That(Object.FindFirstObjectByType<PlayerMovement>(), Is.Not.Null);
         Assert.That(Object.FindFirstObjectByType<PlayerCamera>(), Is.Not.Null);
+
+        JumpBudgetHud jumpBudgetHud = Object.FindFirstObjectByType<JumpBudgetHud>();
+        Assert.That(jumpBudgetHud, Is.Not.Null);
+        Assert.That(jumpBudgetHud.gameObject.name, Is.EqualTo("Jump Budget HUD"));
+        Assert.That(jumpBudgetHud.CountText, Is.Not.Null);
+        Assert.That(jumpBudgetHud.CountText, Is.TypeOf<TextMeshProUGUI>());
     }
 
     [UnityTest]
@@ -396,6 +403,38 @@ public class PlayerMovementPlayModeTests
 
         InvokePrivate(movement, "UpdateAirJumpRefill");
         Assert.That(movement.AvailableAirJumps, Is.EqualTo(0));
+
+        Object.Destroy(movement.gameObject);
+        yield return null;
+    }
+
+    [UnityTest]
+    public IEnumerator AirJumpRefreshProgressReportsFullActiveInactiveAndZeroIntervalSafely()
+    {
+        PlayerMovement movement = CreateTestPlayer();
+        movement.maxAirJumps = 2;
+        yield return null;
+
+        Assert.That(movement.IsAirJumpBudgetFull, Is.True);
+        Assert.That(movement.AirJumpRefreshProgress01, Is.EqualTo(1f));
+
+        movement.maxAirJumps = 3;
+        SetPrivateField(movement, "availableAirJumps", 1);
+        SetPrivateField(movement, "airJumpRegenTimer", 0.15f);
+        movement.airJumpRefillInterval = 0.3f;
+        movement.isGrounded = true;
+
+        Assert.That(movement.IsAirJumpBudgetFull, Is.False);
+        Assert.That(movement.AirJumpRefreshProgress01, Is.EqualTo(0.5f).Within(0.0001f));
+
+        movement.isGrounded = false;
+
+        Assert.That(movement.AirJumpRefreshProgress01, Is.EqualTo(0f));
+
+        movement.isGrounded = true;
+        movement.airJumpRefillInterval = 0f;
+
+        Assert.That(movement.AirJumpRefreshProgress01, Is.EqualTo(1f));
 
         Object.Destroy(movement.gameObject);
         yield return null;

@@ -1,7 +1,8 @@
 {
   "name": "BeanstalkSurvivors.PlayMode.Tests",
   "references": [
-    "BeanstalkSurvivors.Runtime"
+    "BeanstalkSurvivors.Runtime",
+    "Unity.TextMeshPro"
   ],
   "optionalUnityReferences": [
     "TestAssemblies"

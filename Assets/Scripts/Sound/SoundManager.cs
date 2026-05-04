@@ -39,7 +39,6 @@ public enum SoundType
 }
 
 [RequireComponent(typeof(AudioSource))]
-[ExecuteInEditMode]
 public class SoundManager : MonoBehaviour
 {
     [SerializeField] private SoundList[] soundList;
@@ -52,7 +51,7 @@ public class SoundManager : MonoBehaviour
         // Safe singleton setup
         if (instance != null && instance != this)
         {
-            Destroy(gameObject);
+            Destroy(this);
             return;
         }
 
@@ -66,8 +65,7 @@ public class SoundManager : MonoBehaviour
     public static void PlaySound(SoundType sound, float volume = 1f)
     {
         if (instance == null) return;
-
-        SoundList list = instance.soundList[(int)sound];
+        if (!instance.TryGetSoundList(sound, out SoundList list)) return;
 
         if (list.Sounds == null || list.Sounds.Length == 0)
         {
@@ -86,8 +84,7 @@ public class SoundManager : MonoBehaviour
     public static void PlaySoundAtPosition(SoundType sound, Vector3 position, float volume = 1f)
     {
         if (instance == null) return;
-
-        SoundList list = instance.soundList[(int)sound];
+        if (!instance.TryGetSoundList(sound, out SoundList list)) return;
 
         if (list.Sounds == null || list.Sounds.Length == 0)
         {
@@ -100,8 +97,28 @@ public class SoundManager : MonoBehaviour
         AudioSource.PlayClipAtPoint(clip, position, volume);
     }
 
+    private bool TryGetSoundList(SoundType sound, out SoundList list)
+    {
+        int soundIndex = (int)sound;
+        if (soundList == null || soundIndex < 0 || soundIndex >= soundList.Length)
+        {
+            Debug.LogWarning($"Sound list is missing an entry for: {sound}");
+            list = default;
+            return false;
+        }
+
+        list = soundList[soundIndex];
+        return true;
+    }
+
+    private void OnDestroy()
+    {
+        if (instance == this)
+            instance = null;
+    }
+
 #if UNITY_EDITOR
-    private void OnEnable()
+    private void OnValidate()
     {
         string[] names = Enum.GetNames(typeof(SoundType));
 
