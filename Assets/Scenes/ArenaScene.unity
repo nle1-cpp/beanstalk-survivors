@@ -5806,70 +5806,6 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 5334640200477118200, guid: 1f4fba505fc0dfb43b3c5ea3711bbb24, type: 3}
-      propertyPath: soundList.Array.size
-      value: 24
-      objectReference: {fileID: 0}
-    - target: {fileID: 5334640200477118200, guid: 1f4fba505fc0dfb43b3c5ea3711bbb24, type: 3}
-      propertyPath: soundList.Array.data[1].name
-      value: Player_Hurt_Projectile
-      objectReference: {fileID: 0}
-    - target: {fileID: 5334640200477118200, guid: 1f4fba505fc0dfb43b3c5ea3711bbb24, type: 3}
-      propertyPath: soundList.Array.data[3].name
-      value: Player_Death
-      objectReference: {fileID: 0}
-    - target: {fileID: 5334640200477118200, guid: 1f4fba505fc0dfb43b3c5ea3711bbb24, type: 3}
-      propertyPath: soundList.Array.data[15].name
-      value: Enemy_Shoot
-      objectReference: {fileID: 0}
-    - target: {fileID: 5334640200477118200, guid: 1f4fba505fc0dfb43b3c5ea3711bbb24, type: 3}
-      propertyPath: soundList.Array.data[18].name
-      value: Cat_Ascend
-      objectReference: {fileID: 0}
-    - target: {fileID: 5334640200477118200, guid: 1f4fba505fc0dfb43b3c5ea3711bbb24, type: 3}
-      propertyPath: soundList.Array.data[19].name
-      value: Cat_Start
-      objectReference: {fileID: 0}
-    - target: {fileID: 5334640200477118200, guid: 1f4fba505fc0dfb43b3c5ea3711bbb24, type: 3}
-      propertyPath: soundList.Array.data[20].name
-      value: Cat_Windup
-      objectReference: {fileID: 0}
-    - target: {fileID: 5334640200477118200, guid: 1f4fba505fc0dfb43b3c5ea3711bbb24, type: 3}
-      propertyPath: soundList.Array.data[21].name
-      value: Cat_Charge
-      objectReference: {fileID: 0}
-    - target: {fileID: 5334640200477118200, guid: 1f4fba505fc0dfb43b3c5ea3711bbb24, type: 3}
-      propertyPath: soundList.Array.data[22].name
-      value: Enemy_Hurt_Melee
-      objectReference: {fileID: 0}
-    - target: {fileID: 5334640200477118200, guid: 1f4fba505fc0dfb43b3c5ea3711bbb24, type: 3}
-      propertyPath: soundList.Array.data[23].name
-      value: BGM_Clear
-      objectReference: {fileID: 0}
-    - target: {fileID: 5334640200477118200, guid: 1f4fba505fc0dfb43b3c5ea3711bbb24, type: 3}
-      propertyPath: soundList.Array.data[19].sounds.Array.size
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5334640200477118200, guid: 1f4fba505fc0dfb43b3c5ea3711bbb24, type: 3}
-      propertyPath: soundList.Array.data[20].sounds.Array.size
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5334640200477118200, guid: 1f4fba505fc0dfb43b3c5ea3711bbb24, type: 3}
-      propertyPath: soundList.Array.data[21].sounds.Array.size
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5334640200477118200, guid: 1f4fba505fc0dfb43b3c5ea3711bbb24, type: 3}
-      propertyPath: 'soundList.Array.data[19].sounds.Array.data[0]'
-      value: 
-      objectReference: {fileID: 8300000, guid: 63e0ec409d76cfa44a929d1bb009d616, type: 3}
-    - target: {fileID: 5334640200477118200, guid: 1f4fba505fc0dfb43b3c5ea3711bbb24, type: 3}
-      propertyPath: 'soundList.Array.data[20].sounds.Array.data[0]'
-      value: 
-      objectReference: {fileID: 8300000, guid: 12d77f6c4af291248a13520dbcd60416, type: 3}
-    - target: {fileID: 5334640200477118200, guid: 1f4fba505fc0dfb43b3c5ea3711bbb24, type: 3}
-      propertyPath: 'soundList.Array.data[21].sounds.Array.data[0]'
-      value: 
-      objectReference: {fileID: 8300000, guid: f6fb29b36b915534db33a0ac93269fba, type: 3}
     - target: {fileID: 5472851581558264403, guid: 1f4fba505fc0dfb43b3c5ea3711bbb24, type: 3}
       propertyPath: gameManager
       value: 
@@ -5943,17 +5879,44 @@ PrefabInstance:
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 6815408536778390318, guid: 1f4fba505fc0dfb43b3c5ea3711bbb24, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 1273729956}
-    - targetCorrespondingSourceObject: {fileID: 6815408536778390318, guid: 1f4fba505fc0dfb43b3c5ea3711bbb24, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1273729955}
-    - targetCorrespondingSourceObject: {fileID: 6815408536778390318, guid: 1f4fba505fc0dfb43b3c5ea3711bbb24, type: 3}
-      insertIndex: -1
       addedObject: {fileID: 1273729967}
     - targetCorrespondingSourceObject: {fileID: 9092953403199176869, guid: 1f4fba505fc0dfb43b3c5ea3711bbb24, type: 3}
       insertIndex: 2
       addedObject: {fileID: 220442313}
   m_SourcePrefab: {fileID: 100100000, guid: 1f4fba505fc0dfb43b3c5ea3711bbb24, type: 3}
+--- !u!1 &1957398601
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1957398602}
+  - component: {fileID: 1273729956}
+  - component: {fileID: 1273729955}
+  m_Layer: 0
+  m_Name: Sound Manager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1957398602
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1957398601}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1273729954 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 6815408536778390318, guid: 1f4fba505fc0dfb43b3c5ea3711bbb24, type: 3}
@@ -5965,7 +5928,7 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1273729954}
+  m_GameObject: {fileID: 1957398601}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: bd3768ed3de9bd54496269e695077d71, type: 3}
@@ -6055,13 +6018,13 @@ AudioSource:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1273729954}
+  m_GameObject: {fileID: 1957398601}
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
   m_Resource: {fileID: 0}
-  m_PlayOnAwake: 1
+  m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
   Loop: 0
