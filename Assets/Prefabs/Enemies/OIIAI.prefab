@@ -131,7 +131,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::BossAI
   player: {fileID: 0}
   stoppingDistance: 6
-  flySpeed: 8
+  flySpeed: 10
   rotationSpeed: 1800
   minDashSpeed: 75
   maxDashSpeed: 90

@@ -156,7 +156,6 @@ public class WaveManager : MonoBehaviour
 
         // Boss canAct = true
         controller.BeginBossFight();
-        _enemiesRemaining++;
 
         if (flashImage != null)
         {

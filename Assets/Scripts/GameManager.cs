@@ -95,7 +95,7 @@ public class GameManager : MonoBehaviour
         if (scene.name == "ArenaScene")
         {
             // Look for Canvas first (more efficient)
-            Canvas sceneCanvas = FindFirstObjectByType<Canvas>();
+            Canvas sceneCanvas = FindAnyObjectByType<Canvas>();
             if (sceneCanvas != null)
             {
                 // Search the children of Canvas for GameOver panel

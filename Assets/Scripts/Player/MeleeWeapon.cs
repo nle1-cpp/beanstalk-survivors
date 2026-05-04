@@ -34,7 +34,7 @@ public class MeleeWeapon : MonoBehaviour
         weaponAnimator.SetTrigger("Swing");
         
         // PLAY MELEE SOUND
-        SoundManager.PlaySound(SoundType.Weapon_Melee);
+        SoundManager.PlaySound(SoundType.Weapon_Melee, 0.5f);
 
         yield return new WaitForSeconds(0.2f);
 
